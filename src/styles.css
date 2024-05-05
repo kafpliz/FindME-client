@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: RobotoCondensedBold;
+    src: url(./assets/fonts/RobotoCondensed-Bold.ttf);
+}
+@font-face {
+    font-family: RobotoCondensedBoldItalic;
+    src: url(./assets/fonts/RobotoCondensed-BoldItalic.ttf);
+}
+@font-face {
+    font-family:RobotoCondensedLightItalic ;
+    src: url(./assets/fonts/RobotoCondensed-LightItalic.ttf);
+}
+@font-face {
+    font-family:RobotoCondensedLigh;
+    src: url(./assets/fonts/RobotoCondensed-Light.ttf);
+}
