@@ -30,8 +30,8 @@ export class CreateQuestionnairesComponent {
         secondName: '',
         peculiarity: '',
         description: '',
-        img: [''],
-        date: '',
+        files: [''],
+        timeWTF: '',
 
       })
     } else {
@@ -51,12 +51,12 @@ export class CreateQuestionnairesComponent {
   onFilesSelected(event: any) {
     const files: FileList = event.target.files;
     if (files) {
-      const formFiles: File[] = []
+      const selectedFiles: File[] = [];
       for (let i = 0; i < files.length; i++) {
         const file: File = files[i];
-        formFiles.push(file)
-        if (file) {
 
+        if (file) {
+          selectedFiles.push(file);
           const reader = new FileReader();
           reader.onload = (e: any) => {
             this.imgArr.push(e.target.result);
@@ -64,24 +64,49 @@ export class CreateQuestionnairesComponent {
           reader.readAsDataURL(file);
         }
       }
-      this.form.patchValue({ img: formFiles })
+      this.form.get('files')?.setValue(selectedFiles)
     }
 
   }
+  
 
   sendData() {
-    let data: any = this.form.value
 
-    console.log(data);
-    const createNewBlank = async (blank:any) => {
+    const formData = new FormData();
+    
+    Object.keys(this.form.value).forEach(key => {
+      if (key === 'files') {
+        const files: File[] = this.form.get('files')?.value;
+        if (files) {
+          for (let i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+          }
+        }
+      } else {
+        formData.append(key, this.form.get(key)?.value);
+      }
+    });
+
+
+
+    const createNewBlank = async (blank: any) => {
       try {
-        const responce = await axios.post('http://localhost:3000/form/create',blank);
-         return responce.data
-      } catch (error:any) {
-          console.log('Общая ошибка:', error);      
+        console.log('blank:', blank);
+
+        const responce = await axios.post('http://localhost:3000/form/create', blank, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        return responce.data
+      } catch (error: any) {
+        console.log('Общая ошибка:', error);
       }
     }
-    createNewBlank(data).then(data=> console.log(data)    )
+
+
+
+     createNewBlank(formData).then(data=> console.log(data)    )
 
   }
 }

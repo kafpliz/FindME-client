@@ -1,6 +1,6 @@
 <div class="create-form">
     <div class="header"><span class="header-text">Заполните анкету:</span></div>
-    <form class="form" [formGroup]="form">
+    <div class="form" [formGroup]="form">
         <div class="form-item">
             <div class="title-container">
                 <span class="title">Кого вы разыскиваете?</span>
@@ -45,7 +45,7 @@
                         <span class="title">Когда пропал? (дата):</span>
                     </div>
                     <div class="container">
-                        <input class="inp-date" formControlName="date" type="date">
+                        <input class="inp-date" formControlName="timeWTF" type="date">
                     </div>
                 </div>
                 <div class="form-item">
@@ -62,7 +62,7 @@
                     </div>
                     <div class="container">
                         <div class="upload-img" *ngIf="imgArr.length == 0">
-                            <input type="file" class="upload-file-inp"  multiple (change)="onFilesSelected($event)">
+                            <input type="file" class="upload-file-inp"  multiple (change)="onFilesSelected($event)" >
                             <img src="assets/logotips/upload.svg" class="img-upload" alt="" srcset="" >
                         </div>
                         <div class="preview-img" *ngIf="imgArr.length > 0">
@@ -84,5 +84,5 @@
 
         </ng-container>
 
-    </form>
+    </div>
 </div>
