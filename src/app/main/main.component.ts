@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { DataService } from '../data.service';
 @Component({
   selector: 'app-main',
   standalone: true,
@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './main.component.css'
 })
 export class MainComponent {
+  userToken:string = ''
+
+  constructor(private dataService: DataService) {
+      this.userToken = dataService.getUserToken()
+  }
 
 }

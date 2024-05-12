@@ -1,0 +1,17 @@
+<div class="card-blank">
+    <div class="photos">
+        <img *ngFor="let item of blank?.img" src="http://localhost:3000{{item}}" class="card-blank-img" alt="Person img">
+    </div>
+    <div class="fullname">
+        <span class="fullname-span">{{blank?.lastName}} {{blank?.firstName}} {{blank?.secondName}}</span>
+    </div>
+    <div class="time">
+        <span class="time-span">Пропал {{blank?.time}}</span>
+    </div>
+    <div class="peculiarities">
+        <span class="peculiarities-span">{{blank?.peculiarity}}</span>
+    </div>
+    <div class="description">
+        <span class="description-span">{{blank?.description}}</span>
+    </div>
+</div>

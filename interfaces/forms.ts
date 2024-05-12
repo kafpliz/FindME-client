@@ -1,9 +1,12 @@
 export interface Human{
-    human:boolean |null,
-    firstName:string | null,
-    lastName:string | null,
+    id:number ,
+    human:number ,
+    firstName:string ,
+    lastName:string ,
+    secondName:string ,
     peculiarity:string,
     description:string,
-    img:any,
-    date:string
+    img:string[],
+    time:string,
+    found:number
 }

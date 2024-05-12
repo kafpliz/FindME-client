@@ -7,6 +7,8 @@
       <a routerLink="/create-questionnaires" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" >Создать анкету</a>
       <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
       <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Команды</a>
+      <a routerLink="/profile" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="isUserToken">Профиль</a>
+      <a routerLink="/login" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="!isUserToken">Войти</a>
     </div>
   </div>
 <div class="content">
