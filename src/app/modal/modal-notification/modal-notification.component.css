@@ -1,0 +1,16 @@
+.alert {
+    position: fixed;
+    min-width: 200px;
+    max-width: 350px;
+    padding: 10px;
+    height: 50px;
+    border-radius: 10px;
+    background: rgb(54, 54, 54);
+    display: flex;
+    justify-content: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    align-items: center;
+    color: white;
+    top: 50px;
+    right: 180px;
+}

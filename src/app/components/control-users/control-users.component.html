@@ -1,0 +1,40 @@
+<div class="control" *ngIf="isAdmin">
+    <div class="item" *ngFor="let item of usersData">
+        <div class="avatar">
+            <img class="avatar-img"
+                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                width="80px" alt="User avatar" *ngIf="!item.avatar">
+            <img class="avatar-img"
+                [src]="item.avatar"
+                width="80px" alt="User avatar" *ngIf="item.avatar">
+        </div>
+        <div class="info">
+            <div class="info-item">
+                <span class="type">ФИО:</span>
+                <span class="span">{{item.lastName}} {{item.firstName}} {{item.secondName}}</span>
+            </div>
+            <div class="info-item">
+                <span class="type">Почта:</span>
+                <span class="span"> {{item.email}}</span>
+            </div>
+            <div class="info-item">
+                <span class="type">Ник:</span>
+                <span class="span nick-span">{{item.nick}}</span>
+
+            </div>
+            <div class="info-item">
+                <span class="type">Роли:</span>
+                <span class="span roles-span"> {{item.roles }}</span>
+
+            </div>
+
+            <div class="info-item description-item">
+                <span class="type description-type">Описание:</span>
+                <span class="span description-span">{{item.description}} </span>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-no-rights *ngIf="!isAdmin"/>

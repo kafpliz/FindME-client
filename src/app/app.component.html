@@ -3,20 +3,28 @@
     <div class="header_item"><img class="logo" src="assets/logotips/logo.svg" alt="" srcset=""></div>
     <div class="header_item">
       <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
-      <a routerLink="/questionnaires" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Анкеты</a>
-      <a routerLink="/create-questionnaires" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" >Создать анкету</a>
+      <a routerLink="/questionnaires" class="link" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">Анкеты</a>
+      <a routerLink="/create-questionnaires" class="link" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">Создать анкету</a>
       <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
-      <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Команды</a>
-      <a routerLink="/profile" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="isUserToken">Профиль</a>
-      <a routerLink="/login" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="!isUserToken">Войти</a>
+      <a routerLink="/teams" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Команды</a>
+      <div class="profile-link" *ngIf="isUserToken">
+        <span class="profile-link-span" (click)="checkprofile()">Профиль</span>
+      </div>
+
+     
+      <a routerLink="/login" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+        *ngIf="!isUserToken">Войти</a>
     </div>
+    <app-profile-modal [data]="userData" *ngIf="profileModal" [@profileEnter] [@profileLeave]/>
   </div>
-<div class="content">
-  <router-outlet>
+  <div class="content">
+    <router-outlet>
+
+    </router-outlet>
+  </div>
+  <div class="footer">
     
-  </router-outlet>
-</div>
-<div class="footer">
-  
-</div>
+  </div>
 </div>

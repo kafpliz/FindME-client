@@ -1,0 +1,61 @@
+<div class="profile-form">
+    <div class="login" *ngIf="isLogin" [@enterAnimations] [@leaveAnimation]>
+        <div class="login-form">
+            <div class="login-header">
+                <span class="login-header-span">Войдите в свой аккаунт</span>
+            </div>
+            <div class="inp-grp">
+                <label for="" class="inp-label">Ник</label>
+                <input class="inp-log" type="text" name="nick" [(ngModel)]="nick">
+            </div>
+            <div class="inp-grp">
+                <label for="" class="inp-label">Password</label>
+                <input class="inp-log" type="text" name="nick" [(ngModel)]="password">
+            </div>
+            <div class="inp-grp">
+
+                <button class="btn" (click)="sendLoginData()">Войти</button>
+            </div>
+            <span class="login-clue">Нету аккаунта? <span class="login-link" (click)="isLogin = false">Создайте
+                    его!</span></span>
+        </div>
+    </div>
+    <div class="regestration" *ngIf="!isLogin" [@enterAnimations] [@leaveAnimation]>
+        <div class="reg-form">
+            <div class="login-header">
+                <span class="login-header-span">Создайте себе аккаунт</span>
+            </div>
+            <div class="inp-grp">
+                <label for="" class="inp-label">Фамилия</label>
+                <input class="inp-log" type="text" name="lastName" [(ngModel)]="lastName">
+            </div>
+            <div class="inp-grp">
+                <label for="" class="inp-label">Имя</label>
+                <input class="inp-log" type="text" name="firsName" [(ngModel)]="firsName">
+            </div>
+            <div class="inp-grp">
+                <label for="" class="inp-label">Отчество</label>
+                <input class="inp-log" type="text" name="secondName" [(ngModel)]="secondName">
+            </div>
+            <div class="inp-grp">
+                <label for="" class="inp-label">Ваш ник (специальные идентификатор)</label>
+                <input class="inp-log" type="text" name="nick" [(ngModel)]="nick">
+            </div>
+            <div class="inp-grp">
+                <label for="" class="inp-label">Почта</label>
+                <input class="inp-log" type="text" name="email" [(ngModel)]="email">
+            </div>
+            <div class="inp-grp">
+                <label for="" class="inp-label">Пароль</label>
+                <input class="inp-log" type="text" name="password" [(ngModel)]="password">
+            </div>
+            <div class="inp-grp">
+                <button class="btn" (click)="sendRegData()">Создать аккаунт</button>
+            </div>
+            <span class="login-clue">Уже есть аккаунт? <span class="login-link" (click)="isLogin = true">Войдите в него</span></span>
+        </div>
+
+    </div>
+
+ <app-modal-notification *ngIf="isCorrectLogin" [@modalEnterAnimation] [@modalleaveAnimation]  [data]="alertMessage"/>
+</div>

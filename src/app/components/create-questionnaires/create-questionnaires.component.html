@@ -1,0 +1,165 @@
+<div class="create-form">
+    <div class="header"><span class="header-text">Заполните анкету:</span></div>
+    <div class="form-item">
+        <div class="title-container">
+            <span class="title">Кого вы разыскиваете?</span>
+        </div>
+        <div class="container">
+            <div class="container-item" (click)="human = true">
+                <span class="container-item-text">ЧЕЛОВЕКА</span>
+                <img src="assets/img/human-found.png" class="container-item-img" alt="Photo" srcset="">
+                <div class="above-img"></div>
+
+            </div>
+            <div class="container-item" (click)="human = false">
+                <span class="container-item-text">ЖИВОТНОЕ</span>
+                <img src="assets/img/animal-found.png" class="container-item-img" alt="Photo" srcset="">
+                <div class="above-img"></div>
+            </div>
+        </div>
+    </div>
+    <div class="forms">
+        <div class="form" [formGroup]="formHuman"  *ngIf="human">
+
+            <ng-container>
+                <div class="form-items" *ngIf="human" [@enterAnimations] [@leaveAnimation]>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">ФИО пропавшего:</span>
+                        </div>
+                        <div class="container">
+                            <input type="text" class="inp-fio lastname" placeholder="Фамилия"
+                                formControlName="lastName">
+                            <input type="text" class="inp-fio firstname" placeholder="Имя" formControlName="firstName">
+                            <input type="text" class="inp-fio" placeholder="Отчество" formControlName="secondName">
+
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Особенности, чем выделяется на фоне других:</span>
+                        </div>
+                        <div class="container">
+                            <input type="text" class="inp-peculiarities" placeholder="Особенности"
+                                formControlName="peculiarity">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Когда пропал? (дата):</span>
+                        </div>
+                        <div class="container">
+                            <input class="inp-date" formControlName="timeWTF" type="date">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Описание:</span>
+                        </div>
+                        <div class="container">
+                            <textarea type="text" class="inp-description" formControlName="description"
+                                id=""></textarea>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Загрузите фотографию пропавшего:</span>
+                        </div>
+                        <div class="container">
+                            <div class="upload-img" *ngIf="imgArr.length == 0">
+                                <input type="file" class="upload-file-inp" (change)="onFilesSelectedHuman($event)">
+                                <img src="assets/logotips/upload.svg" class="img-upload" alt="" srcset="">
+                            </div>
+                            <div class="preview-img" *ngIf="imgArr.length > 0">
+                                <div *ngFor="let image of imgArr" class="">
+                                    <img [src]="image" width="200">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-end">
+                        <button class="send-btn" (click)="sendDataHuman()">Отправить</button>
+                    </div>
+                </div>
+
+
+
+            </ng-container>
+
+        </div>
+        <div class="form" [formGroup]="formAnimal" *ngIf="human == false">
+
+            <ng-container >
+                <div class="form-items" *ngIf="human == false" [@enterAnimations] [@leaveAnimation]>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Кличка животного:</span>
+                        </div>
+                        <div class="container">
+                            <input type="text" class="inp-fio lastname" placeholder="Кличка животного"
+                                formControlName="nick">
+
+
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Особенности, чем выделяется на фоне других:</span>
+                        </div>
+                        <div class="container">
+                            <input type="text" class="inp-peculiarities" placeholder="Особенности"
+                                formControlName="peculiarity">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Когда пропал? (дата):</span>
+                        </div>
+                        <div class="container">
+                            <input class="inp-date" formControlName="timeWTF" type="date">
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Описание:</span>
+                        </div>
+                        <div class="container">
+                            <textarea type="text" class="inp-description" formControlName="description"
+                                id=""></textarea>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div class="title-container">
+                            <span class="title">Загрузите фотографию пропавшего:</span>
+                        </div>
+                        <div class="container">
+                            <div class="upload-img" *ngIf="imgArr.length == 0">
+                                <input type="file" class="upload-file-inp"  (change)="onFilesSelectedAnimal($event)">
+                                <img src="assets/logotips/upload.svg" class="img-upload" alt="" srcset="">
+                            </div>
+                            <div class="preview-img" *ngIf="imgArr.length > 0">
+                                <div *ngFor="let image of imgArr" class="">
+                                    <img [src]="image" width="200">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-end">
+                        <button class="send-btn" (click)="sendDataAnimal()">Отправить</button>
+                    </div>
+                </div>
+
+
+
+            </ng-container>
+
+        </div>
+    </div>
+    <app-modal-notification *ngIf="correctSend" [data]="alertMessage" [@modalEnterAnimation] [@modalleaveAnimation] style="box-shadow: 0 0 10px green;"/>
+</div>

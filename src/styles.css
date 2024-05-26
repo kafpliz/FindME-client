@@ -24,3 +24,7 @@
     font-family:SourceSerifProSemiboldIt;
     src: url(./assets/fonts/SourceSerifPro-SemiboldIt.ttf);
 }
+@font-face {
+    font-family:Nautilus;
+    src: url(./assets/fonts/Nautilus.otf);
+}

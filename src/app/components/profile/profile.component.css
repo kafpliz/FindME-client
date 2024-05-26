@@ -1,0 +1,157 @@
+.profile {
+    width: 100%;
+    min-height: 100vh;
+    justify-content: center;
+    display: flex;
+}
+
+.container {
+    width: 80%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.header {
+    width: 100%;
+    height: 200px;
+    background: rgb(0, 139, 109);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    position: relative;
+}
+
+.avatar {
+    width: 180px;
+    border-radius: 6px;
+}
+
+.info {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.info-item {
+    width: 100%;
+    height: calc(200px / 3);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.info-item-span {
+    font-size: 30px;
+    color: white;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.342);
+    border-radius: 3px;
+    font-family: Nautilus;
+}
+
+.email-phone {
+    font-size: 15px;
+    font-family: cursive;
+}
+.email-phone-nick{
+    color: rgb(255, 61, 61);
+    font-weight: bold;
+}
+.logotip-box {
+    width: 35px;
+}
+
+.logotips {
+    width: 18%;
+    justify-content: space-around;
+}
+
+.logotip {
+    cursor: pointer;
+    transition: all .3s ease-in;
+}
+
+.logotip:hover {
+    transform: scale(1.2, 1.2);
+}
+
+.logotip-link {
+    text-decoration: none;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    min-height: 100px;
+    width: 100%;
+    gap: 7px;
+}
+
+.description-header {
+    font-family: RobotoCondensedBold;
+}
+
+.description-text {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.edit-block {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.edit-icon {
+    fill: white;
+}
+.info-item-inp{
+    padding: 5px;
+    width: 150px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+.logotips-edit{
+        width: 50%;
+}
+.logotip-box-edit{
+    width: 150px;
+}
+.description-text-inp{
+    box-shadow: 0 0 3px  black;
+    width: 600px;
+    height: 200px;
+}
+.end-block{
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.end-item{
+    fill: rgb(0, 255, 110);
+}
+.header-icons{
+    transition: all .3s ease-in-out;
+
+}
+.header-icons:active{
+    transform: scale(1.2, 1.2);
+}

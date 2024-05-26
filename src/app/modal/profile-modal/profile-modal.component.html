@@ -1,0 +1,45 @@
+<div class="profile-modal">
+   <div class="profile-item">
+      <div class="item-avatar"> <img class="avatar-img"
+            src="https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg" width="50"
+            alt="" srcset=""></div>
+      <div class="item-name">
+         <div class="fullName">{{data.firstName}} {{data.lastName}}</div>
+         <div class="email"><span>{{data.email}}</span></div>
+      </div>
+   </div>
+   <div class="profile-settings">
+      <div class="settings-item">
+         <div class="icon"><img src="assets/icons/settings.svg" width="20px" alt="" srcset=""></div>
+         <div class="text"><span>Настройки</span></div>
+      </div>
+      <div class="settings-item">
+         <div class="icon"><img src="assets/icons/profile.svg" width="20px" alt="" srcset=""></div>
+         <div class="text"><a routerLink="/profile" routerLinkActive="active" class="link" >Просмотреть профиль</a></div>
+      </div>
+      <div class="settings-item" *ngIf="isAdmin">
+         <div class="icon"><img src="assets/icons/book.svg" width="20px" alt="" srcset=""></div>
+         <div class="text"><span class="link" routerLink="/control" routerLinkActive="active">Анкеты на модерацию</span></div>
+      </div>
+      <div class="settings-item" *ngIf="isLogin">
+         <div class="icon"><img src="assets/icons/teams.svg" width="20px" alt="" srcset=""></div>
+         <div class="text"><span class="link" routerLink="/create-team" routerLinkActive="active">Создать команду</span></div>
+      </div>
+      <div class="settings-item">
+         <div class="icon"><img src="assets/icons/help.svg" width="20px" alt="" srcset=""></div>
+         <div class="text"><span>Помощь</span></div>
+      </div>
+   </div>
+   <div class="profile-leave">
+      <div class="logout" (click)="logOut()">
+         <div class="logout-icon"><svg xmlns="http://www.w3.org/2000/svg" class="logout-icon ionicon"
+               viewBox="0 0 512 512">
+               <path
+                  d="M304 336v40a40 40 0 01-40 40H104a40 40 0 01-40-40V136a40 40 0 0140-40h152c22.09 0 48 17.91 48 40v40M368 336l80-80-80-80M176 256h256"
+                  fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+            </svg>
+         </div>
+         <div class="logout-text">Выйти</div>
+      </div>
+   </div>
+</div>

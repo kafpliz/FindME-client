@@ -12,6 +12,7 @@
     display: flex;
     border-radius: 0 0 15px 15px;
     background: linear-gradient(90deg, #E8BA1A, #6119D7);
+    position: relative;
 }
 
 .header_item:nth-child(1) {
@@ -37,6 +38,7 @@
 .link {
     color: white;
     text-decoration: none;
+    
 }
 
 .content {
@@ -50,4 +52,8 @@
 .footer{
     width: 100%;
     min-height: 170px;
+}
+
+.profile-link-span{
+    cursor: pointer;
 }
