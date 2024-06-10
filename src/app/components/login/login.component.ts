@@ -58,7 +58,7 @@ export class LoginComponent {
     }
     login(data).then(data => {
       console.log(data);
-
+      
       if (data.status != 200) {
         this.isCorrectLogin = true
         let obj: any = {
@@ -79,7 +79,8 @@ export class LoginComponent {
           style: '0 0 10px green'
         }
         this.alertMessage.push(obj)
-        this.cookieService.set('userToken', data.token)
+        this.cookieService.set('accessToken', data.token.accessToken)
+        this.cookieService.set('refreshToken', data.token.refreshToken)
            
         setTimeout(() => {
           this.isCorrectLogin = false

@@ -1,1 +1,78 @@
-<p>create-team works!</p>
+<div class="main" *ngIf="isLogin">
+      <div class="content">
+        <div class="item">
+            <label for="" class="item-label">Название команды:</label>
+            <input type="text" class="item-input" id="" [(ngModel)]="teamForm.name">
+        </div>
+        <div class="item">
+            <label for="" class="item-label">Описание команды:</label>
+            <textarea type="text" class="item-input item-textarea" id="" [(ngModel)]="teamForm.description"></textarea>
+        </div>
+        <div class="item">
+            <label for="" class="item-label">Ник команды<sup>(специальный идентификатор)</sup></label>
+            <input type="text" class="item-input" id="" [(ngModel)]="teamForm.nick">
+        </div>
+        <div class="item">
+            <label for="" class="item-label">ССылки на социальные сети команды:</label>
+            <div class="socialLink">
+            <input type="text" class="item-input inp-socialLink" id=""placeholder="Ссылка на instagram" [(ngModel)]="teamForm.socialLinks.inst">
+            <input type="text" class="item-input inp-socialLink" id=""placeholder="Ссылка на telegram" [(ngModel)]="teamForm.socialLinks.tg">
+            <input type="text" class="item-input inp-socialLink" id=""placeholder="Ссылка на vk" [(ngModel)]="teamForm.socialLinks.vk">
+            </div>
+        </div>
+        <div class="item">
+            <label for="" class="item-label">Участники команды:</label>
+            <input type="text" class="item-input finMember-inp" id=""placeholder="Найти участника" [(ngModel)]="memberTipsString" (input)="getTips()">
+            <div class="tips" *ngIf="isTips">
+                
+                <div class="tips-item" *ngFor="let item of memberTips" (click)="selectTip(item.id)">
+                    <span style="display: none;">{{item.id}}</span>
+                    <img class="tips-img" [src]="item.avatar" alt="" srcset="">
+                    <span class="tips-nick">{{item.nick}}</span>
+                </div>
+               
+               
+            </div>
+            <div class="members" *ngIf="isMembers">
+                <div class="members-item" >
+                    <div class="members-img">
+                        <img [src]="creater.avatar" class="members-item-avatar" alt="" srcset="">
+                    </div>
+                    <span class="members-item-name" [ngStyle]="{color: creater.creator ? 'red' : 'gray'}">{{creater.nick}}</span>
+                </div>
+
+                <div class="members-item" *ngFor="let item of members">
+                    <div class="members-img">
+                        <img [src]="item.avatar" class="members-item-avatar" alt="" srcset="">
+                    </div>
+                    <span class="members-item-name" [ngStyle]="{color: item.creator ? 'red' : 'gray'}">{{item.nick}}</span>
+                </div>
+      
+             
+            </div>
+
+
+        </div>
+
+        <div class="item">
+            <label for="" class="item-label">Загрузите аватар команды</label>
+            <div class="drop-avatar" *ngIf="!imgLink">
+                <img src="/assets/logotips/upload.svg" class="drop-img" alt="" srcset="">
+                <input type="file" name="" class="drop-img-inp" id="" (change)="onFilesSelected($event)">
+            </div>
+            <img [src]="imgLink" class="avatar-img" alt="" srcset="" *ngIf="imgLink">
+        </div>
+        <div class="send-item">
+            <button class="send-btn" (click)="sendTeamData()" >Отправить</button>
+        </div>
+      </div>
+
+
+<!-- <button (click)="send()">send</button> -->
+</div>
+
+
+<app-modal-notification [data]="notification" [@modalEnterAnimation] [@modalleaveAnimation] *ngIf="isNotification"/>
+
+<app-no-rights *ngIf="!isLogin"/>
+

@@ -20,7 +20,7 @@ export class AppComponent {
 
 
   constructor(private dataService: DataService) {
-    this.isUserToken = dataService.userToken
+    this.isUserToken = dataService.accessToken
     this.userData = dataService.getUserData()
 
     dataService.dataChanged.subscribe((data)=> {

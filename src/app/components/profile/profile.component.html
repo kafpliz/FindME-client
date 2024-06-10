@@ -1,7 +1,10 @@
 <div class="profile" *ngIf="isUserToken">
     <div class="container" *ngIf="!isEdit">
         <div class="header">
-            <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar" srcset="" class="avatar">
+          <div class="avatar">  
+            <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar" srcset="" class="avatar-img" *ngIf="!imgLink.length">
+            <img [src]="imgLink" alt="avatar" srcset="" class="avatar-img" *ngIf="imgLink.length">
+        </div>
             <div class="info">
                 <div class="info-item">
                     <span class="info-item-span">
@@ -103,28 +106,33 @@
 
         </div>
     </div>
-    <div class="container" *ngIf="isEdit">
+    <div class="container" *ngIf="isEdit" >
+
         <div class="header">
-            <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar" srcset="" class="avatar">
+        <div class="avatar">
+            <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar" srcset="" class="avatar-img" *ngIf="imgLink.length == 0">
+            <img [src]="imgLink" alt="avatar" srcset="" class="avatar-img" *ngIf="imgLink.length != 0">
+            <input type="file" name="" class="edit-avatar-file" id="" (change)="onFilesSelected($event)">
+        </div>
             <div class="info">
                 <div class="info-item">
-                    <input [placeholder]="userData.lastName" class="info-item-inp" [(ngModel)]="editLastName">
-                    <input [placeholder]="userData.firstName" class="info-item-inp" [(ngModel)]="editFirstName">
-                    <input [placeholder]="userData.secondName" class="info-item-inp" [(ngModel)]="editSecondName">
+                    <input [placeholder]="userData.lastName" class="info-item-inp" [(ngModel)]="userForm.editLastName">
+                    <input [placeholder]="userData.firstName" class="info-item-inp" [(ngModel)]="userForm.editFirstName">
+                    <input [placeholder]="userData.secondName" class="info-item-inp" [(ngModel)]="userForm.editSecondName">
                 </div>
                 <div class="info-item">
-                    <input type="text" class="info-item-inp" [placeholder]="userData.email" [(ngModel)]="editEmail">
-                    <input type="text" class="info-item-inp" placeholder="+3752585957585" [(ngModel)]="editPhone">
+                    <input type="text" class="info-item-inp" [placeholder]="userData.email" [(ngModel)]="userForm.editEmail">
+                    <input type="text" class="info-item-inp" [placeholder]="userData.phone" [(ngModel)]="userForm.editPhone">
                 </div>
                 <div class="info-item logotips logotips-edit">
                     <div class="logotip-box logotip-box-edit">
-                        <input type="text" class="info-item-inp" placeholder="Инста" [(ngModel)]="editLinkInst">
+                        <input type="text" class="info-item-inp" placeholder="Инста" [(ngModel)]="userForm.socialLinks.inst">
                     </div>
                     <div class="logotip-box logotip-box-edit">
-                        <input type="text" class="info-item-inp" placeholder="Телеграм" [(ngModel)]="editLinkTg">
+                        <input type="text" class="info-item-inp" placeholder="Телеграм" [(ngModel)]="userForm.socialLinks.tg">
                     </div>
                     <div class="logotip-box logotip-box-edit">
-                        <input type="text" class="info-item-inp" placeholder="Вк" [(ngModel)]="editLinkVk">
+                        <input type="text" class="info-item-inp" placeholder="Вк" [(ngModel)]="userForm.socialLinks.vk">
                     </div>
 
                 </div>
@@ -144,11 +152,12 @@
         <div class="description">
             <h2 class="description-header">Описание:</h2>
             <div class="description-text" >
-                <textarea type="text" class="info-item-inp description-text-inp" [placeholder]="userData.description"[(ngModel)]="editDescription"></textarea>
+                <textarea type="text" class="info-item-inp description-text-inp" [placeholder]="userData.description" [(ngModel)]="userForm.editDescription"></textarea>
          
             </div>
 
         </div>
+        
     </div>
     <app-modal-notification [data]="alertMessage" *ngIf="isNotification" [@modalEnterAnimation] [@modalleaveAnimation]></app-modal-notification>
 </div>

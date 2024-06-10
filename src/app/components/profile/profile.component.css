@@ -27,8 +27,31 @@
 
 .avatar {
     width: 180px;
-    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
 }
+
+.avatar-img {
+    width: 100%;
+    border-radius: 6px;
+    aspect-ratio: 1/1;
+}
+
+.edit-avatar-file {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    left: -50px;
+    top: -50px;
+    display: none;
+    cursor: pointer;
+}
+
+.avatar:hover .edit-avatar-file {
+    display: block;
+}
+
+
 
 .info {
     width: 80%;
@@ -59,10 +82,12 @@
     font-size: 15px;
     font-family: cursive;
 }
-.email-phone-nick{
+
+.email-phone-nick {
     color: rgb(255, 61, 61);
     font-weight: bold;
 }
+
 .logotip-box {
     width: 35px;
 }
@@ -116,25 +141,30 @@
 .edit-icon {
     fill: white;
 }
-.info-item-inp{
+
+.info-item-inp {
     padding: 5px;
     width: 150px;
     border-radius: 5px;
     outline: none;
     border: none;
 }
-.logotips-edit{
-        width: 50%;
+
+.logotips-edit {
+    width: 50%;
 }
-.logotip-box-edit{
+
+.logotip-box-edit {
     width: 150px;
 }
-.description-text-inp{
-    box-shadow: 0 0 3px  black;
+
+.description-text-inp {
+    box-shadow: 0 0 3px black;
     width: 600px;
     height: 200px;
 }
-.end-block{
+
+.end-block {
     width: 30px;
     height: 30px;
     display: grid;
@@ -145,13 +175,15 @@
     cursor: pointer;
 }
 
-.end-item{
+.end-item {
     fill: rgb(0, 255, 110);
 }
-.header-icons{
+
+.header-icons {
     transition: all .3s ease-in-out;
 
 }
-.header-icons:active{
+
+.header-icons:active {
     transform: scale(1.2, 1.2);
 }

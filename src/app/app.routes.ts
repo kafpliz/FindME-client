@@ -8,6 +8,8 @@ import { ControlUsersComponent } from './components/control-users/control-users.
 import { NotFoundComponent } from './erorr-components/not-found/not-found.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { CreateTeamComponent } from './components/create-team/create-team.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { AllUsersComponent } from './components/all-users/all-users.component';
 
 export const routes: Routes = [
     {path: '', component: MainComponent},
@@ -18,6 +20,8 @@ export const routes: Routes = [
     {path: 'control', component: ControlUsersComponent},
     {path: 'teams', component: TeamsComponent},
     {path: 'create-team', component: CreateTeamComponent},
+    {path: 'settings', component: SettingsComponent},
+    {path: 'users', component: AllUsersComponent},
 
 
     {path: '**', component: NotFoundComponent}

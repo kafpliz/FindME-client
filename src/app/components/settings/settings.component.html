@@ -1,0 +1,27 @@
+<div class="main" *ngIf="isLogin">
+   <div class="container">
+      <div class="item">
+         <span>Подтверди свой email</span>
+
+         <div class="" *ngIf="!confirm">
+            <button class="button item-group" *ngIf="!sent" (click)="sendEmailCode()">Подтвердить</button>
+            <input type="text " class="item-group inp" *ngIf="sent" maxlength="6" [(ngModel)]="code"
+               (input)="confirmEmailCode()">
+         </div>
+         <div class="item-group confirm-group-div" *ngIf="confirm" >
+            <span>Подтверждён</span>
+         </div>
+
+      </div>
+      <div class="item">
+         <span>Отображать профиль публично?</span>
+         <button class="button item-group" *ngIf="publicProfile" (click)="sendPublicProfile()">Запретить</button>
+         <button class="button item-group" *ngIf="!publicProfile" (click)="sendPublicProfile()">Разрешить</button>
+      </div>
+
+
+
+   </div>
+</div>
+<app-no-rights *ngIf="!isLogin"/>
+<app-modal-notification [data]="notification" *ngIf="isNotification" [@modalleaveAnimation] [@modalEnterAnimation] />

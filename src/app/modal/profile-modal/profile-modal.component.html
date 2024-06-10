@@ -11,7 +11,7 @@
    <div class="profile-settings">
       <div class="settings-item">
          <div class="icon"><img src="assets/icons/settings.svg" width="20px" alt="" srcset=""></div>
-         <div class="text"><span>Настройки</span></div>
+         <div class="text"><span class="link" routerLink="/settings" routerLinkActive="active">Настройки</span></div>
       </div>
       <div class="settings-item">
          <div class="icon"><img src="assets/icons/profile.svg" width="20px" alt="" srcset=""></div>
@@ -19,7 +19,7 @@
       </div>
       <div class="settings-item" *ngIf="isAdmin">
          <div class="icon"><img src="assets/icons/book.svg" width="20px" alt="" srcset=""></div>
-         <div class="text"><span class="link" routerLink="/control" routerLinkActive="active">Анкеты на модерацию</span></div>
+         <div class="text"><span class="link" routerLink="/control" routerLinkActive="active">Пользователи</span></div>
       </div>
       <div class="settings-item" *ngIf="isLogin">
          <div class="icon"><img src="assets/icons/teams.svg" width="20px" alt="" srcset=""></div>

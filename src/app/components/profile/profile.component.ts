@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { DataService } from '../../data.service';
 import { CommonModule } from '@angular/common';
 import axios from 'axios';
-import { FormsModule } from '@angular/forms';
 import { ModalNotificationComponent } from '../../modal/modal-notification/modal-notification.component';
 import { modalEnterAnimation, modalleaveAnimation } from '../../animations/allAnimation';
+import { FormsModule } from '@angular/forms';
+import { editUserForm } from '../../interfaces/forms';
 
 @Component({
   selector: 'app-profile',
@@ -18,39 +19,77 @@ export class ProfileComponent {
   isUserToken: boolean | string = false
   userData: any;
   isEdit: boolean = false
-  alertMessage:any;
-  isNotification:boolean = false
+  alertMessage: any;
+  isNotification: boolean = false
+  imgLink: string = '';
+  userNick: string = '';
 
-  userNick: string = ''
-  editFirstName: string = ''
-  editSecondName: string = ''
-  editLastName: string = ''
-  editPhone: string = ''
-  editEmail: string = ''
-  editLinkInst: string = ''
-  editLinkTg: string = ''
-  editLinkVk: string = ''
-  editDescription: string = ''
+  userForm: editUserForm = {
+    userNick: '',
+    editFirstName: '',
+    editSecondName: '',
+    editLastName: '',
+    editPhone: '',
+    editEmail: '',
+    socialLinks: {
+      inst: '',
+      tg: '',
+      vk: '',
+    },
+    editDescription: '',
+    files: [],
+  }
+
 
 
 
   constructor(private dataService: DataService) {
-    this.isUserToken = dataService.userToken.length > 1 ? dataService.userToken : false;
+
 
     dataService.dataChanged.subscribe(data => {
       if (data.status == 200) {
         this.userData = data.data;
         this.userNick = this.userData.nick
         console.log('profile data', this.userData);
+        this.userForm.userNick = this.userData.nick;
+        if (this.userData.avatar) {
+          this.imgLink = dataService.backHost + this.userData.avatar
+        }
+
       }
-
-
     })
+
+    this.isUserToken = dataService.accessToken.length > 1 ? dataService.accessToken : false;
+
+
+
   }
 
+  onFilesSelected(event: any) {
+    const files: FileList = event.target.files;
+    if (files) {
+      const selectedFiles: File[] = [];
+      for (let i = 0; i < files.length; i++) {
+        const file: File = files[i];
+
+        if (file) {
+          selectedFiles.push(file);
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.imgLink = e.target.result;
+          };
+          reader.readAsDataURL(file);
+
+
+        }
+      }
+      this.userForm.files = selectedFiles
+    }
+
+  }
+
+
   changeMode() {
-
-
     if (this.isEdit == false) {
       this.isEdit = true
     } else {
@@ -58,28 +97,49 @@ export class ProfileComponent {
     }
   }
   sendEditData() {
-    let objData = {
-      nick: this.userNick,
-      firstName: this.editFirstName.length > 1 ? this.editFirstName : this.userData.firstName,
-      lastName: this.editLastName.length > 1 ? this.editLastName : this.userData.lastName,
-      secondName: this.editSecondName.length > 1 ? this.editSecondName : this.userData.secondName,
-      email: this.editEmail.length > 1 ? this.editEmail : this.userData.email,
-      description: this.editDescription.length > 1 ? this.editDescription : this.userData.description,
-      phone: this.editPhone.length > 1 ? this.editPhone : this.userData.phone,
+    let obj =  {
+      userNick: this.userForm.userNick,
+      editFirstName: this.userForm.editFirstName.length == 0? this.userData.firstName: this.userForm.editFirstName,
+      editSecondName: this.userForm.editSecondName.length == 0? this.userData.secondName: this.userForm.editSecondName,
+      editLastName: this.userForm.editLastName.length == 0? this.userData.lastName: this.userForm.editLastName,
+      editPhone: this.userForm.editPhone.length == 0? this.userData.phone: this.userForm.editPhone,
+      editEmail: this.userForm.editEmail.length == 0? this.userData.email: this.userForm.editEmail,
       socialLinks: {
-        tg: this.editLinkTg.length > 1 ? this.editLinkTg : this.userData.socialLinks.tg,
-        inst: this.editLinkInst.length > 1 ? this.editLinkInst : this.userData.socialLinks.inst,
-        vk: this.editLinkVk.length > 1 ? this.editLinkVk : this.userData.socialLinks.vk
+        editLinkInst: this.userForm.socialLinks.inst.length === 0? this.userData.socialLinks.inst : this.userForm.socialLinks.inst,
+        editLinkTg: this.userForm.socialLinks.tg.length === 0? this.userData.socialLinks.tg : this.userForm.socialLinks.tg,
+        editLinkVk: this.userForm.socialLinks.vk.length === 0? this.userData.socialLinks.vk : this.userForm.socialLinks.vk,
       },
+      editDescription: this.userForm.editDescription.length == 0? this.userData.description: this.userForm.editDescription,
+      files: this.userForm.files,
     }
+
+    const formData = new FormData();
+
+
+
+    Object.keys(obj).forEach(key => {
+      if (key === 'files') {
+        const files: File[] = this.userForm.files
+        if (files) {
+          for (let i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+          }
+        }
+      } else if (key === 'socialLinks') {
+        formData.append('socialLinks', JSON.stringify(this.userForm.socialLinks));
+      } else {
+        formData.append(key, this.userForm[key]);
+      }
+    });
+
 
 
     let sendData = async (data: any, token: any) => {
       try {
         const responce = await axios.post('http://localhost:3000/auth/updateUser', data, {
           headers: {
-            "Content-Type": 'application/json',
-            Authorization: `Bearer ${token}`
+            "Content-Type": 'multipart/form-data',
+            accessToken: `Bearer ${token}`
           }
         })
         return responce.data
@@ -88,21 +148,21 @@ export class ProfileComponent {
 
       }
     }
-   
-    
-    sendData(objData, this.isUserToken).then(data => {
+
+
+    sendData(formData, this.isUserToken).then(data => {
       console.log(data);
-      if(data.status == 200){
+      if (data.status == 200) {
         this.isNotification = true
-        this.alertMessage = [{message: data.message,style: '0 0 10px green'}]
+        this.alertMessage = [{ message: data.message, style: '0 0 10px green' }]
         this.isEdit = false;
-        this.userData = objData;
+
 
         setTimeout(() => {
           this.isNotification = false;
-          
+          location.reload()
         }, 2000);
-      } else{
+      } else {
         this.alertMessage = [{
           message: data.message,
           style: '0 0 10px red'
@@ -112,7 +172,7 @@ export class ProfileComponent {
           this.isEdit = false
         }, 2000);
       }
-     
+
     })
 
 

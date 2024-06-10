@@ -11,7 +11,7 @@ export class MainComponent {
   userToken:string = ''
 
   constructor(private dataService: DataService) {
-      this.userToken = dataService.getUserToken()
+     
   }
 
 }

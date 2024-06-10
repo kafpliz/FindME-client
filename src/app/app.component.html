@@ -7,7 +7,7 @@
         [routerLinkActiveOptions]="{exact: true}">Анкеты</a>
       <a routerLink="/create-questionnaires" class="link" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">Создать анкету</a>
-      <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
+      <a routerLink="/users" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
       <a routerLink="/teams" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Команды</a>
       <div class="profile-link" *ngIf="isUserToken">
         <span class="profile-link-span" (click)="checkprofile()">Профиль</span>

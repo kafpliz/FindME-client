@@ -22,7 +22,7 @@ export class ProfileModalComponent {
   
   logOut() {
     console.log('Вы вышли');
-    this.cookieService.delete('userToken')
+    this.cookieService.delete('accessToken')
     location.reload()
   }
 }
