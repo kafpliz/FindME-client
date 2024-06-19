@@ -1,0 +1,318 @@
+.header {
+    width: 100%;
+    height: 42px;
+    display: flex;
+    border-radius: 0 0 15px 15px;
+    background: linear-gradient(90deg, #E8BA1A, #6119D7);
+    position: relative;
+}
+
+.header_item:nth-child(1) {
+    flex: 1 1;
+    display: flex;
+    justify-content: center;
+}
+
+.header_item:nth-child(2) {
+    flex: 2 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 30px;
+    font-family: cursive;
+}
+
+.logo {
+    height: 38px;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+
+}
+
+.content {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.active {
+    text-shadow: 0 0 4px red;
+}
+
+.footer {
+    width: 100%;
+    min-height: 170px;
+}
+
+.profile-link-span {
+    cursor: pointer;
+}
+
+.burger-menu {
+    display: none;
+
+    z-index: 2;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.burger-checkbox {
+    position: absolute;
+    visibility: hidden;
+}
+
+.burger {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    border: none;
+    background: transparent;
+    width: 40px;
+    height: 26px;
+}
+
+.burger::before,
+.burger::after {
+    content: '';
+    left: 0;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 4px;
+    border-radius: 10px;
+    background: white;
+}
+
+.burger::before {
+    top: 0;
+    box-shadow: 0 11px 0 white;
+    transition: box-shadow .3s .15s, top .3s .15s, transform .3s;
+}
+
+.burger::after {
+    bottom: 0;
+    transition: bottom .3s .15s, transform .3s;
+}
+
+.burger-checkbox:checked+.burger::before {
+    top: 11px;
+    transform: rotate(45deg);
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0);
+    transition: box-shadow .15s, top .3s, transform .3s .15s;
+}
+
+.burger-checkbox:checked+.burger::after {
+    bottom: 11px;
+    transform: rotate(-45deg);
+    transition: bottom .3s, transform .3s .15s;
+}
+
+.menu-list::-webkit-scrollbar {
+    width: 0;
+}
+
+.menu-list {
+    top: 0;
+    left: 0;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 42px 0;
+    margin: 0;
+    background: orange;
+    list-style-type: none;
+    transform: translateX(-100%);
+    transition: .3s;
+    width: 200px;
+}
+
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, .2)
+}
+
+.burger-checkbox:checked~.menu-list {
+    transform: translateX(0);
+}
+
+.menu-link {
+    display: block;
+    padding: 8px;
+    color: white;
+    font-size: 18px;
+
+    text-decoration: none;
+}
+
+.burger-profile-img {
+    width: 80px;
+    align-self: center;
+    border-radius: 10px;
+    box-shadow: 0 0 3px black;
+}
+
+.burger-profile-link {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    overflow: hidden;
+    min-height: 120px;
+    justify-content: center;
+    text-decoration: none
+}
+
+.burger-profile-firstname {
+    width: 100%;
+    font-family: cursive;
+    text-align: center;
+    color: snow;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 0 15px;
+}
+
+
+
+.profile-settings {
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-top:1px solid rgb(46 46 46);
+    padding: 0 0 5px 0;
+}
+
+.settings-item {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    align-items: center;
+    cursor: pointer;
+    transition: all .6s ease-out;
+    padding: 5px;
+    border-radius: 10px;
+
+}
+
+.icon {
+    height: 20px;
+}
+
+.text {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.profile-leave {
+    width: 100%;
+    height: 30px;
+}
+
+.logout {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    padding: 5px;
+    align-items: center;
+    cursor: pointer;
+    transition: all .6s ease-out;
+
+}
+
+.logout-icon {
+    height: 20px;
+    font-weight: bold;
+}
+
+.logout-text {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.logout:hover {
+    background: red;
+    color: white;
+    fill: white;
+}
+
+
+@media screen and (min-width: 1500px) {
+
+    .header {
+        width: 100%;
+        height: 42px;
+        display: flex;
+        border-radius: 0 0 15px 15px;
+        background: linear-gradient(90deg, #E8BA1A, #6119D7);
+        position: relative;
+    }
+
+    .header_item:nth-child(1) {
+        flex: 1 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .header_item:nth-child(2) {
+        flex: 2 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        gap: 30px;
+        font-family: cursive;
+    }
+
+    .logo {
+        height: 38px;
+    }
+
+    .content {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+
+    .footer {
+        width: 100%;
+        min-height: 170px;
+    }
+
+
+}
+
+@media screen and (max-width: 935px) and (min-width: 778px) {
+
+    .header_item:nth-child(2) {
+        flex: 4 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        gap: 30px;
+        font-family: cursive;
+    }
+}
+
+@media screen and (max-width: 777px) and (min-width: 320px) {
+    .header {
+        padding: 0 15px;
+        border-radius: 0;
+    }
+
+    .header_item:nth-child(2) {
+        display: none;
+    }
+
+    .burger-menu {
+        display: flex;
+    }
+}

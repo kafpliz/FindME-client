@@ -1,0 +1,80 @@
+<div class="header">
+  <div class="header_item"><img class="logo" src="assets/logotips/logo.svg" alt="" srcset=""></div>
+
+  <div class="header_item">
+    <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
+    <a routerLink="/questionnaires" class="link" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">Анкеты</a>
+    <a routerLink="/create-questionnaires" class="link" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">Создать анкету</a>
+    <a routerLink="/users" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
+    <a routerLink="/teams" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Команды</a>
+    <div class="profile-link" *ngIf="isUserToken">
+      <span class="profile-link-span" (click)="checkprofile()">Профиль</span>
+    </div>
+    <a routerLink="/login" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+      *ngIf="!isUserToken">Войти</a>
+  </div>
+  <div class="header-item burger-menu">
+    <div class="menu">
+      <input type="checkbox" id="burger-checkbox" class="burger-checkbox">
+      <label for="burger-checkbox" class="burger"></label>
+      <div class="menu-list">
+        <a class="profile-link burger-profile-link" routerLink="/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="isLogin">
+          <img class="burger-profile-img" [src]="userData.avatar" alt="" srcset="" >
+          <span class="burger-profile-firstname"  >{{userData.firstName ? userData.firstName : userData.nick}}</span>
+        </a>
+        <a class="profile-link burger-profile-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="!isLogin">
+          <img class="burger-profile-img" [src]="defaultAvatar" alt="" srcset="" >
+          <span class="burger-profile-firstname"  >Войти</span>
+
+        </a>
+        <a routerLink="/" class="link menu-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">Главная</a>
+        <a routerLink="/questionnaires" class="link menu-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">Анкеты</a>
+        <a routerLink="/create-questionnaires" class="link menu-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">Создать анкету</a>
+        <a routerLink="/users" class="link menu-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
+        <a routerLink="/teams" class="link menu-link" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}">Команды</a>
+       
+        <div class="profile-settings" *ngIf="isLogin">
+          <div class="settings-item" >
+            <div class="text"><span class="link" routerLink="/settings" routerLinkActive="active">Настройки</span></div>
+            <div class="icon"><img src="assets/icons/settings.svg" width="20px" alt="" srcset=""></div>
+
+          </div>
+
+          <div class="settings-item" *ngIf="isAdmin" >
+            <div class="text"><span class="link" routerLink="/control" routerLinkActive="active">Пользователи</span>
+            </div>
+            <div class="icon"><img src="assets/icons/book.svg" width="20px" alt="" srcset=""></div>
+          </div>
+          <div class="settings-item" *ngIf="isLogin">
+            <div class="text link"><span class="link" routerLink="/create-team" routerLinkActive="active">Создать
+                команду</span></div>
+            <div class="icon"><img src="assets/icons/teams.svg" width="20px" alt="" srcset=""></div>
+          </div>
+          <div class="settings-item">
+            <span class="text link"><span>Помощь</span></span>
+            <span class="icon"><img src="assets/icons/help.svg" width="20px" alt="" srcset=""></span>
+          </div>
+          <div class="logout" (click)="logOut()" *ngIf="isLogin">
+            <div class="logout-icon"><svg xmlns="http://www.w3.org/2000/svg" class="logout-icon ionicon"
+                viewBox="0 0 512 512">
+                <path
+                  d="M304 336v40a40 40 0 01-40 40H104a40 40 0 01-40-40V136a40 40 0 0140-40h152c22.09 0 48 17.91 48 40v40M368 336l80-80-80-80M176 256h256"
+                  fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+              </svg>
+            </div>
+            <span class="logout-text">Выйти</span>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  <app-profile-modal [data]="userData" *ngIf="profileModal" [@profileEnter] [@profileLeave] />
+</div>

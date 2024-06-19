@@ -27,6 +27,8 @@ export interface editUserForm {
 
     editDescription: string,
     files: File[],
+    confirmPassword: string,
+    newPassword: string
 }
 
 export interface teamForm {
@@ -39,6 +41,7 @@ export interface teamForm {
     files: File[],
 
 }
+
 export interface Users {
     avatar: string,
     firstName: string,
@@ -50,3 +53,25 @@ export interface Users {
 
 }
 
+export interface LoginForm {
+    login: boolean,
+    regestration: boolean
+    forgotPassword: boolean
+}
+
+export interface UserData {
+    id: number,
+    firstName: string
+    lastName: string
+    secondName: string
+    nick: string
+    email: string
+    description: string
+    avatar: string | any
+    roles: string
+    phone: string
+    socialLinks: string
+    confirmEmail: boolean
+    public: boolean
+
+}

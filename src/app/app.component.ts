@@ -4,11 +4,12 @@ import { DataService } from './data.service';
 import { CommonModule } from '@angular/common';
 import { ProfileModalComponent } from './modal/profile-modal/profile-modal.component';
 import { profileEnterAnimation, profileLeaveAnimation } from './animations/allAnimation';
+import { MainHeaderComponent } from './components/main-header/main-header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule, ProfileModalComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule, ProfileModalComponent, MainHeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   animations: [profileEnterAnimation, profileLeaveAnimation]
@@ -33,13 +34,5 @@ export class AppComponent {
   
   }
   
-  checkprofile() {
-    
-    if (this.profileModal == true) {
-      this.profileModal = false
-    } else {
-      this.profileModal = true
-    }
-    return
-  }
+ 
 }

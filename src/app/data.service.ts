@@ -7,8 +7,8 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class DataService {
-  refreshToken: string = this.cookieService.get('refreshToken');
-  accessToken: string = this.cookieService.get('accessToken');
+  refreshToken: string | boolean= this.cookieService.get('refreshToken')? this.cookieService.get('refreshToken') : false;
+  accessToken: string| boolean = this.cookieService.get('accessToken')? this.cookieService.get('accessToken') : false;
   isAdmin: boolean = false;
   isLogin: boolean = false;
   backHost: string = 'http://localhost:3000/'
@@ -42,27 +42,32 @@ export class DataService {
   }
 
   constructor(private cookieService: CookieService) {
-     
-    this.getData({ accessToken: this.accessToken, refreshToken: this.refreshToken }).then(data => {
-      if (data.status == 205){
-        console.log(document.cookie);
+    console.log(this.refreshToken);
+    console.log(this.accessToken);
+    
+     if(this.refreshToken || this.accessToken){
+      this.getData({ accessToken: this.accessToken, refreshToken: this.refreshToken }).then(data => {
+        if (data.status == 205){
+          console.log(document.cookie);
+          
+          cookieService.delete('refreshToken')
+          cookieService.delete('accessToken')
+  
+          cookieService.set('accessToken', data.tokens.accessToken)
+          cookieService.set('refreshToken', data.tokens.refreshToken)
         
-        cookieService.delete('refreshToken')
-        cookieService.delete('accessToken')
-
-        cookieService.set('accessToken', data.tokens.accessToken)
-        cookieService.set('refreshToken', data.tokens.refreshToken)
-      
-      }
-
-      this.isAdmin = data.data.roles === "admin" ? true : false
-      data.data.admin = true;
-      
-      this.isLogin = true
-     
-
-      this.dataChanged.emit(data)
-    })
+        }
+  
+        this.isAdmin = data.data.roles === "admin" ? true : false
+        data.data.admin = true;
+        
+        this.isLogin = true
+       
+  
+        this.dataChanged.emit(data)
+      })
+     }
+    
 
   }
 

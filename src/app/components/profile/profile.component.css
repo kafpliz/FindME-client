@@ -15,7 +15,7 @@
 
 .header {
     width: 100%;
-    height: 200px;
+        height: 200px;
     background: rgb(0, 139, 109);
     border-radius: 20px;
     display: flex;

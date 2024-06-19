@@ -6,6 +6,7 @@ import axios from 'axios';
 import { enterAnimations, leaveAnimation, modalEnterAnimation, modalleaveAnimation } from '../../animations/allAnimation';
 import { CookieService } from 'ngx-cookie-service';
 import { ModalNotificationComponent } from '../../modal/modal-notification/modal-notification.component';
+import { LoginForm } from '../../interfaces/forms';
 
 
 @Component({
@@ -17,9 +18,13 @@ import { ModalNotificationComponent } from '../../modal/modal-notification/modal
   animations: [modalEnterAnimation, modalleaveAnimation, enterAnimations, leaveAnimation]
 })
 export class LoginComponent {
-  isLogin: boolean = true;
+  isLogin: LoginForm = {
+    login: true,
+    regestration: false,
+    forgotPassword: false,
+  };
   isCorrectLogin: boolean = false
-  alertMessage:any = []
+  alertMessage: any = {}
   boxShadow: string = '0 0 10px green'
   nick: string = '';
   password: string = '';
@@ -27,7 +32,7 @@ export class LoginComponent {
   firsName: string = '';
   secondName: string = '';
   email: string = '';
-
+  
 
 
   constructor(private cookieService: CookieService) {
@@ -58,35 +63,38 @@ export class LoginComponent {
     }
     login(data).then(data => {
       console.log(data);
-      
+
       if (data.status != 200) {
         this.isCorrectLogin = true
         let obj: any = {
-          message:`Ошибка: ${data.message}`,
+          message: `Ошибка: ${data.message}`,
           style: '0 0 10px red'
-        } 
-        this.alertMessage.push(obj)
- 
+        }
+        this.alertMessage = obj
+
         setTimeout(() => {
           this.isCorrectLogin = false
         }, 3000);
 
       } else {
         this.isCorrectLogin = true
-        
+
         let obj: any = {
           message: `${data.message}, сейчас вас перенаправят.`,
           style: '0 0 10px green'
         }
-        this.alertMessage.push(obj)
+        console.log('login до',this.alertMessage);
+        this.alertMessage = obj
+        console.log('login после',this.alertMessage);
+
         this.cookieService.set('accessToken', data.token.accessToken)
         this.cookieService.set('refreshToken', data.token.refreshToken)
-           
+
         setTimeout(() => {
           this.isCorrectLogin = false
         }, 3000);
         setTimeout(() => {
-          location.href = '/'
+           location.href = '/'
         }, 3500);
       }
     });
@@ -94,6 +102,7 @@ export class LoginComponent {
   }
 
   sendRegData() {
+
     let data = {
       firstName: this.firsName,
       lastName: this.lastName,
@@ -119,14 +128,14 @@ export class LoginComponent {
     }
     regData(data).then(data => {
       console.log(data);
-      
+
       if (data.status != 200) {
         this.isCorrectLogin = true
         let obj: any = {
-          message:`Ошибка: ${data.message}`,
+          message: `Ошибка: ${data.message}`,
           style: '0 0 10px red'
         }
-        this.alertMessage.push(obj)
+        this.alertMessage = obj
 
         setTimeout(() => {
           this.isCorrectLogin = false
@@ -139,15 +148,121 @@ export class LoginComponent {
           message: `${data.message}, сейчас вас перенаправят.`,
           style: '0 0 10px green'
         }
-        this.alertMessage.push(obj)
+        this.alertMessage = obj
 
-         setTimeout(() => {
-          location.href  = '/'
+        setTimeout(() => {
+          location.href = '/'
         }, 2000);
-  
+
       }
     })
     console.log(data);
 
+  }
+  editLoginMode() {
+
+    if (this.isLogin.login == true) {
+      this.isLogin.login = false
+
+      setTimeout(() => {
+        this.isLogin.regestration = true
+      }, 500);
+      this.isLogin.forgotPassword = false
+    } else {
+      this.isLogin.regestration = false
+
+      setTimeout(() => {
+        this.isLogin.login = true;
+      }, 500);
+      this.isLogin.forgotPassword = false
+    }
+
+  }
+  editForgotMode() {
+    if (this.isLogin.forgotPassword == false) {
+      this.isLogin.login = false
+      setTimeout(() => {
+        this.isLogin.forgotPassword = true;
+      }, 500);
+    } else {
+      this.isLogin.forgotPassword = false;
+      this.isLogin.login = true
+    }
+
+  }
+  forgotPassword() {
+    console.log(200);
+
+    let data = {
+      email: this.email,
+    }
+    console.log(data);
+
+    const fogortPassword = async (data: any) => {
+      try {
+        const responce = await axios.post('http://localhost:3000/auth/fogortPassword', data, {
+          headers: {
+            "Content-Type": 'application/json'
+          }
+        })
+        return responce.data
+
+      } catch (error: any) {
+        console.log(error);
+
+
+        if (error.response.status == 401) {
+          this.isCorrectLogin = true
+          let obj: any = {
+            message: `Ошибка: ${error.response.data.message}`,
+            style: '0 0 10px red'
+          }
+          this.alertMessage = obj
+          setTimeout(() => {
+            this.isCorrectLogin = false
+          }, 3000);
+        }
+
+
+      }
+    }
+
+    fogortPassword(data).then(data => {
+     
+      
+      console.log(data);
+      if (data.status == 200) {
+        this.isCorrectLogin = true
+        let obj: any = {
+          message: ` Успешно: ${data.message}`,
+          style: '0 0 10px green'
+        }
+        
+        this.alertMessage = obj
+        
+
+        setTimeout(() => {
+          this.isCorrectLogin = false
+
+        }, 3000);
+        setTimeout(() => {
+          this.isLogin.forgotPassword = false
+          this.isLogin.login = true
+        }, 300);
+
+      } else {
+        this.isCorrectLogin = true
+        let obj: any = {
+          message: `Ошибка: ${data.message}`,
+          style: '0 0 10px red'
+        }
+        this.alertMessage = obj
+        setTimeout(() => {
+          this.isCorrectLogin = false
+        }, 3000);
+      }
+
+
+    })
   }
 }

@@ -19,7 +19,7 @@ export class ProfileComponent {
   isUserToken: boolean | string = false
   userData: any;
   isEdit: boolean = false
-  alertMessage: any;
+  alertMessage: any = {};
   isNotification: boolean = false
   imgLink: string = '';
   userNick: string = '';
@@ -38,6 +38,8 @@ export class ProfileComponent {
     },
     editDescription: '',
     files: [],
+    confirmPassword: '',
+    newPassword: ''
   }
 
 
@@ -59,7 +61,7 @@ export class ProfileComponent {
       }
     })
 
-    this.isUserToken = dataService.accessToken.length > 1 ? dataService.accessToken : false;
+    this.isUserToken = dataService.accessToken ? dataService.accessToken : false;
 
 
 
@@ -111,6 +113,8 @@ export class ProfileComponent {
       },
       editDescription: this.userForm.editDescription.length == 0? this.userData.description: this.userForm.editDescription,
       files: this.userForm.files,
+      confirmPassword: this.userForm.confirmPassword,
+      newPassword: this.userForm.newPassword
     }
 
     const formData = new FormData();
@@ -154,7 +158,7 @@ export class ProfileComponent {
       console.log(data);
       if (data.status == 200) {
         this.isNotification = true
-        this.alertMessage = [{ message: data.message, style: '0 0 10px green' }]
+        this.alertMessage = { message: data.message, style: '0 0 10px green' }
         this.isEdit = false;
 
 
@@ -163,10 +167,13 @@ export class ProfileComponent {
           location.reload()
         }, 2000);
       } else {
-        this.alertMessage = [{
+        console.log(300);
+        this.isNotification = true;
+
+        this.alertMessage = {
           message: data.message,
           style: '0 0 10px red'
-        }]
+        }
         setTimeout(() => {
           this.isNotification = false;
           this.isEdit = false

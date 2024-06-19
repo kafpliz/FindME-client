@@ -1,10 +1,10 @@
 <div class="profile" *ngIf="isUserToken">
     <div class="container" *ngIf="!isEdit">
         <div class="header">
-          <div class="avatar">  
-            <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar" srcset="" class="avatar-img" *ngIf="!imgLink.length">
-            <img [src]="imgLink" alt="avatar" srcset="" class="avatar-img" *ngIf="imgLink.length">
-        </div>
+            <div class="avatar">
+
+                <img [src]="imgLink" alt="avatar" srcset="" class="avatar-img">
+            </div>
             <div class="info">
                 <div class="info-item">
                     <span class="info-item-span">
@@ -22,7 +22,8 @@
                 </div>
                 <div class="info-item logotips">
                     <div class="logotip-box">
-                        <a [href]="'https://instagram.com/' + userData.socialLinks.inst" class="logotip-link" target="_blank">
+                        <a [href]="'https://instagram.com/' + userData.socialLinks.inst" class="logotip-link"
+                            target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="logotip">
                                 <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899"
                                     gradientUnits="userSpaceOnUse">
@@ -52,7 +53,7 @@
                         </a>
                     </div>
                     <div class="logotip-box">
-                        <a [href]="'https://t.me/' + userData.socialLinks.tg"class="logotip-link" target="_blank">
+                        <a [href]="'https://t.me/' + userData.socialLinks.tg" class="logotip-link" target="_blank">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="logotip">
                                 <path fill="#29b6f6" d="M24 4A20 20 0 1 0 24 44A20 20 0 1 0 24 4Z" />
                                 <path fill="#fff"
@@ -99,44 +100,57 @@
             <h2 class="description-header">Описание:</h2>
             <div class="description-text">
                 <pre [innerHTML]="userData.description">
-                     
+
                 </pre>
-          
+
             </div>
 
         </div>
     </div>
-    <div class="container" *ngIf="isEdit" >
-
+    <div class="container" *ngIf="isEdit">
         <div class="header">
-        <div class="avatar">
-            <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar" srcset="" class="avatar-img" *ngIf="imgLink.length == 0">
-            <img [src]="imgLink" alt="avatar" srcset="" class="avatar-img" *ngIf="imgLink.length != 0">
-            <input type="file" name="" class="edit-avatar-file" id="" (change)="onFilesSelected($event)">
-        </div>
+            <div class="avatar">
+                <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="avatar" srcset="" class="avatar-img"
+                    *ngIf="imgLink.length == 0">
+                <img [src]="imgLink" alt="avatar" srcset="" class="avatar-img" *ngIf="imgLink.length != 0">
+                <input type="file" name="" class="edit-avatar-file" id="" (change)="onFilesSelected($event)">
+            </div>
             <div class="info">
                 <div class="info-item">
                     <input [placeholder]="userData.lastName" class="info-item-inp" [(ngModel)]="userForm.editLastName">
-                    <input [placeholder]="userData.firstName" class="info-item-inp" [(ngModel)]="userForm.editFirstName">
-                    <input [placeholder]="userData.secondName" class="info-item-inp" [(ngModel)]="userForm.editSecondName">
+                    <input [placeholder]="userData.firstName" class="info-item-inp"
+                        [(ngModel)]="userForm.editFirstName">
+                    <input [placeholder]="userData.secondName" class="info-item-inp"
+                        [(ngModel)]="userForm.editSecondName">
                 </div>
                 <div class="info-item">
-                    <input type="text" class="info-item-inp" [placeholder]="userData.email" [(ngModel)]="userForm.editEmail">
-                    <input type="text" class="info-item-inp" [placeholder]="userData.phone" [(ngModel)]="userForm.editPhone">
+                    <input type="text" class="info-item-inp" [placeholder]="userData.email"
+                        [(ngModel)]="userForm.editEmail">
+                    <input type="text" class="info-item-inp" [placeholder]="userData.phone"
+                        [(ngModel)]="userForm.editPhone">
                 </div>
                 <div class="info-item logotips logotips-edit">
                     <div class="logotip-box logotip-box-edit">
-                        <input type="text" class="info-item-inp" placeholder="Инста" [(ngModel)]="userForm.socialLinks.inst">
+                        <input type="text" class="info-item-inp" placeholder="Инста"
+                            [(ngModel)]="userForm.socialLinks.inst">
                     </div>
                     <div class="logotip-box logotip-box-edit">
-                        <input type="text" class="info-item-inp" placeholder="Телеграм" [(ngModel)]="userForm.socialLinks.tg">
+                        <input type="text" class="info-item-inp" placeholder="Телеграм"
+                            [(ngModel)]="userForm.socialLinks.tg">
                     </div>
                     <div class="logotip-box logotip-box-edit">
                         <input type="text" class="info-item-inp" placeholder="Вк" [(ngModel)]="userForm.socialLinks.vk">
                     </div>
 
                 </div>
+                <div class="info-item">
+                    <input type="text" class="info-item-inp" placeholder="Подтвердите старый пароль"
+                        [(ngModel)]="userForm.confirmPassword">
+                    <input type="text" class="info-item-inp" placeholder="Новый пароль"
+                        [(ngModel)]="userForm.newPassword">
+                </div>
             </div>
+
             <div class="edit-block header-icons" (click)="changeMode()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" class="edit-icon">
                     <path
@@ -145,19 +159,21 @@
             </div>
             <div class="end-block header-icons" (click)="sendEditData()">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="end-item">
-                    <path  d="M40.6 12.1L17 35.7 7.4 26.1 4.6 29 17 41.3 43.4 14.9z" />
+                    <path d="M40.6 12.1L17 35.7 7.4 26.1 4.6 29 17 41.3 43.4 14.9z" />
                 </svg>
             </div>
         </div>
         <div class="description">
             <h2 class="description-header">Описание:</h2>
-            <div class="description-text" >
-                <textarea type="text" class="info-item-inp description-text-inp" [placeholder]="userData.description" [(ngModel)]="userForm.editDescription"></textarea>
-         
+            <div class="description-text">
+                <textarea type="text" class="info-item-inp description-text-inp" [placeholder]="userData.description"
+                    [(ngModel)]="userForm.editDescription"></textarea>
+
             </div>
 
         </div>
-        
+
     </div>
-    <app-modal-notification [data]="alertMessage" *ngIf="isNotification" [@modalEnterAnimation] [@modalleaveAnimation]></app-modal-notification>
+    <app-modal-notification [data]="alertMessage" *ngIf="isNotification" [@modalEnterAnimation]
+        [@modalleaveAnimation]></app-modal-notification>
 </div>
