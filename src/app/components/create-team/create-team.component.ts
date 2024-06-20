@@ -7,6 +7,7 @@ import { ModalNotificationComponent } from '../../modal/modal-notification/modal
 import { modalEnterAnimation, modalleaveAnimation } from '../../animations/allAnimation';
 import { FormsModule } from '@angular/forms';
 import { teamForm } from '../../interfaces/forms';
+import { postData } from '../../utils/allUtils';
 
 @Component({
   selector: 'app-create-team',
@@ -65,22 +66,7 @@ export class CreateTeamComponent {
 
   getTips() {
     if (this.memberTipsString.length >= 3) {
-
-      let sendCode = async (data: any) => {
-        try {
-          const responce = await axios.post('http://localhost:3000/auth/tips', data.data, {
-            headers: {
-              accessToken: `Bearer ${data.tokens.accessToken}`,
-            }
-          })
-
-          return responce.data
-
-        } catch (error: any) {
-
-        }
-      }
-      sendCode({ tokens: this.tokens, data: { tips: this.memberTipsString } }).then(data => {
+      postData(this.tokens, 'auth/tips', {tips: this.memberTipsString}).then(data => {
         console.log(data);
         if (data.data.length < 1) {
 
@@ -144,12 +130,8 @@ export class CreateTeamComponent {
   }
 
   sendTeamData() {
-   
-     
     console.log(this.teamForm);
     const formData = new FormData();
-
-
 
     Object.keys(this.teamForm).forEach(key => {
       if (key === 'files') {
@@ -170,34 +152,21 @@ export class CreateTeamComponent {
     });
 
 
-    let sendData = async (data: any) => {
-      try {
-        const responce = await axios.post('http://localhost:3000/auth/createTeam', data.team, {
-          headers: {
-            "Content-Type": 'multipart/form-data',
-            accessToken: ` Bearer ${data.tokens.accessToken}`
-          }
-        })
-        return responce.data
-      } catch (error) {
-        console.log(error);
+  
 
-      }
-    }
-
-    sendData({ tokens: this.tokens, team: formData }).then(data => {
+    postData(this.tokens, 'auth/createTeam',formData).then(data => {
       console.log(data);
 
       if (data.status == 200) {
 
         this.isNotification = true;
-        this.notification = [{ message: data.message, style: '0 0 10px green' }]
+        this.notification = { message: data.message, style: '0 0 10px green' }
         setTimeout(() => {
           this.isNotification = false
         }, 3000);
       } else {
         this.isNotification = true;
-        this.notification = [{ message: data.message, style: '0 0 10px red' }]
+        this.notification = { message: data.message, style: '0 0 10px red' }
         setTimeout(() => {
           this.isNotification = false
         }, 3000);

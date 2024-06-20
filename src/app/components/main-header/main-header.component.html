@@ -25,7 +25,7 @@
           <span class="burger-profile-firstname"  >{{userData.firstName ? userData.firstName : userData.nick}}</span>
         </a>
         <a class="profile-link burger-profile-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="!isLogin">
-          <img class="burger-profile-img" [src]="defaultAvatar" alt="" srcset="" >
+          <img class="burger-profile-img" src="assets/img/default.jpg" alt="" srcset="" >
           <span class="burger-profile-firstname"  >Войти</span>
 
         </a>

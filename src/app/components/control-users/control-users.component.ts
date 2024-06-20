@@ -4,6 +4,8 @@ import axios from 'axios';
 import { CommonModule } from '@angular/common';
 import { NoRightsComponent } from '../../erorr-components/no-rights/no-rights.component';
 import { FormsModule } from '@angular/forms';
+import { TokensAuth } from '../../interfaces/forms';
+import { postData } from '../../utils/allUtils';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class ControlUsersComponent {
   userData: any
   usersData: any;
   isEdit:boolean = false;
+  tokens:TokensAuth = this.dataService.getUserTokens()
   link:string = 'http://localhost:3000/'
   userNick: string = ''
   editFirstName: string = ''
@@ -43,24 +46,10 @@ export class ControlUsersComponent {
       
       this.isAdmin = this.userData.data.admin
      
-      const getData = async (data: any) => {
-        try {
-          const responce = await axios.post('http://localhost:3000/auth/users', data, {
-            headers: {
-              Authorization: `Bearer ${data}`
-            }
-          })
-          return responce.data
-  
-        } catch (error) {
-          console.log(error);
-  
-        }
-      }
+      
     
       if(this.isAdmin === true){
-        getData(this.dataService.getUserTokens()).then(
-          data => {
+        postData(this.tokens, 'auth/users', '').then( data => {
             this.usersData = data.data;
             console.log('Users', this.usersData)
           }

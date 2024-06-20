@@ -7,6 +7,7 @@ import { enterAnimations, leaveAnimation, modalEnterAnimation, modalleaveAnimati
 import { CookieService } from 'ngx-cookie-service';
 import { ModalNotificationComponent } from '../../modal/modal-notification/modal-notification.component';
 import { LoginForm } from '../../interfaces/forms';
+import { postData } from '../../utils/allUtils';
 
 
 @Component({
@@ -46,22 +47,7 @@ export class LoginComponent {
     }
     console.log(data);
 
-
-    const login = async (data: any) => {
-      try {
-        const responce = await axios.post('http://localhost:3000/auth/login', data, {
-          headers: {
-            "Content-Type": 'application/json'
-          }
-        })
-        return responce.data
-
-      } catch (error) {
-        console.log(error);
-
-      }
-    }
-    login(data).then(data => {
+    postData(null, 'auth/login', data).then(data => {
       console.log(data);
 
       if (data.status != 200) {
@@ -111,22 +97,7 @@ export class LoginComponent {
       password: this.password,
       email: this.email,
     }
-
-    const regData = async (data: any) => {
-      try {
-        let responce = await axios.post('http://localhost:3000/auth/register', data, {
-          headers: {
-            "Content-Type": 'application/json'
-          }
-        })
-        return responce.data
-      } catch (error) {
-        console.log(error);
-      }
-
-
-    }
-    regData(data).then(data => {
+    postData(null, 'auth/register', data).then(data => {
       console.log(data);
 
       if (data.status != 200) {
@@ -157,7 +128,6 @@ export class LoginComponent {
       }
     })
     console.log(data);
-
   }
   editLoginMode() {
 
@@ -191,43 +161,10 @@ export class LoginComponent {
 
   }
   forgotPassword() {
-    console.log(200);
-
     let data = {
       email: this.email,
     }
-    console.log(data);
-
-    const fogortPassword = async (data: any) => {
-      try {
-        const responce = await axios.post('http://localhost:3000/auth/fogortPassword', data, {
-          headers: {
-            "Content-Type": 'application/json'
-          }
-        })
-        return responce.data
-
-      } catch (error: any) {
-        console.log(error);
-
-
-        if (error.response.status == 401) {
-          this.isCorrectLogin = true
-          let obj: any = {
-            message: `Ошибка: ${error.response.data.message}`,
-            style: '0 0 10px red'
-          }
-          this.alertMessage = obj
-          setTimeout(() => {
-            this.isCorrectLogin = false
-          }, 3000);
-        }
-
-
-      }
-    }
-
-    fogortPassword(data).then(data => {
+    postData(null, 'auth/fogortPassword', data).then(data => {
      
       
       console.log(data);

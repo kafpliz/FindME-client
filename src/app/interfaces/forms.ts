@@ -75,3 +75,8 @@ export interface UserData {
     public: boolean
 
 }
+
+export interface TokensAuth {
+    refreshToken: string | boolean
+      accessToken: string | boolean
+}

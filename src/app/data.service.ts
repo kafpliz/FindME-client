@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import axios from 'axios';
 import { CookieService } from 'ngx-cookie-service';
+import { postData } from './utils/allUtils';
 
 
 @Injectable({
@@ -16,55 +17,34 @@ export class DataService {
   private userData: any = 'По кд'
   dataChanged = new EventEmitter<any>()
 
-  getData = async (data: any): Promise<any> => {
-    try {
-      const responce = await axios.post('http://localhost:3000/auth/getUser', data, {
-        headers: {
-          accessToken: `Bearer ${data.accessToken}`,
-        }
-      })
-      console.log('Полученные данные из сервисы ', responce.data);
-      return responce.data
-
-    } catch (error: any) {
-      console.log(error);
-
-      if (error.response.status == 401) {
-        const responce = await axios.post('http://localhost:3000/auth/getUser', data, {
-          headers: {
-            refreshToken: `Bearer ${data.refreshToken}`,
-          }
-        })
-
-        return responce.data
-      }
-    }
-  }
+  
 
   constructor(private cookieService: CookieService) {
-    console.log(this.refreshToken);
-    console.log(this.accessToken);
-    
+
      if(this.refreshToken || this.accessToken){
-      this.getData({ accessToken: this.accessToken, refreshToken: this.refreshToken }).then(data => {
-        if (data.status == 205){
-          console.log(document.cookie);
+      postData({accessToken: this.accessToken, refreshToken: this.refreshToken}, 'auth/getUser', '').then(data => {
+        console.log(data);
+        if (data.status == 200){
+        
+          this.isAdmin = data.data.roles === "admin" ? true : false
+          data.data.admin = true;
           
+          this.isLogin = true
+         
+    
+          this.dataChanged.emit(data)
+        } else if(data.status == 205) {    
           cookieService.delete('refreshToken')
           cookieService.delete('accessToken')
-  
           cookieService.set('accessToken', data.tokens.accessToken)
           cookieService.set('refreshToken', data.tokens.refreshToken)
-        
+          this.accessToken = data.tokens.accessToken;
+          this.refreshToken = data.tokens.refreshToken
+          location.reload()
+          
         }
   
-        this.isAdmin = data.data.roles === "admin" ? true : false
-        data.data.admin = true;
-        
-        this.isLogin = true
        
-  
-        this.dataChanged.emit(data)
       })
      }
     
@@ -76,7 +56,7 @@ export class DataService {
   }
   getUserTokens(){
     return {
-      refreshToken:this.refreshToken,
+      refreshToken: this.refreshToken,
       accessToken: this.accessToken
     }
   }

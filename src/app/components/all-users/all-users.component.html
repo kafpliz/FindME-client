@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main" >
 
   <div class="card" *ngFor="let item of users" [ngStyle]="{display: loading == true ? 'none' : 'block'}">
     <div class="card-z" *ngIf="!loading">
@@ -111,5 +111,4 @@
 
     </div>
   </div>
-
-  <app-no-rights *ngIf="!isLogin" />
+</div>

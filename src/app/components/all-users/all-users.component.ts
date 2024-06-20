@@ -5,6 +5,7 @@ import { Users } from '../../interfaces/forms';
 import { CommonModule } from '@angular/common';
 import { NoRightsComponent } from '../../erorr-components/no-rights/no-rights.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { postData } from '../../utils/allUtils';
 
 @Component({
   selector: 'app-all-users',
@@ -26,23 +27,9 @@ export class AllUsersComponent {
   ngOnInit() {
     console.log(this.tokens);
     if (this.tokens.accessToken || this.tokens.refreshToken) {
-      let send = async (data: any) => {
-        try {
-          const responce = await axios.post('http://localhost:3000/auth/publicUsers', data.data, {
-            headers: {
-              accessToken: `Bearer ${data.tokens.accessToken}`,
-            }
-          })
-
-          return responce.data
-
-        } catch (error: any) {
-
-        }
-      }
-
+     
     
-      send({ tokens: this.tokens, data: '' }).then(data => {
+      postData( this.tokens, 'auth/publicUsers', '').then(data => {
         console.log(data);
         this.isLogin = true
         for (let i = 0; i < data.data.length; i++) {

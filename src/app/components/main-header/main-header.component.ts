@@ -21,12 +21,12 @@ export class MainHeaderComponent {
   isUserToken: boolean | string = false
   isLogin: boolean = false
   isAdmin: boolean = true
-  defaultAvatar:string = this.dataService.backHost + 'user_img/default.jpg'
+ 
   userData!: UserData;
 
   constructor(private dataService: DataService, private cookieService: CookieService) {
     dataService.dataChanged.subscribe((data: { status: number, data: UserData }) => {
-      console.log(this.userData);
+
       if (data.status == 200 && data != null) {
         this.isLogin = true;
         this.isUserToken = dataService.accessToken
@@ -41,7 +41,6 @@ export class MainHeaderComponent {
 
   }
   checkprofile() {
-
     if (this.profileModal == true) {
       this.profileModal = false
     } else {

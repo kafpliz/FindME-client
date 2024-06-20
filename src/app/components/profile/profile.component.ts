@@ -5,7 +5,8 @@ import axios from 'axios';
 import { ModalNotificationComponent } from '../../modal/modal-notification/modal-notification.component';
 import { modalEnterAnimation, modalleaveAnimation } from '../../animations/allAnimation';
 import { FormsModule } from '@angular/forms';
-import { editUserForm } from '../../interfaces/forms';
+import { TokensAuth, editUserForm } from '../../interfaces/forms';
+import { postData } from '../../utils/allUtils';
 
 @Component({
   selector: 'app-profile',
@@ -16,14 +17,14 @@ import { editUserForm } from '../../interfaces/forms';
   animations: [modalEnterAnimation, modalleaveAnimation]
 })
 export class ProfileComponent {
-  isUserToken: boolean | string = false
+  isLogin: boolean = false
   userData: any;
   isEdit: boolean = false
   alertMessage: any = {};
   isNotification: boolean = false
   imgLink: string = '';
   userNick: string = '';
-
+  tokens: TokensAuth = this.dataService.getUserTokens()
   userForm: editUserForm = {
     userNick: '',
     editFirstName: '',
@@ -46,10 +47,9 @@ export class ProfileComponent {
 
 
   constructor(private dataService: DataService) {
-
-
     dataService.dataChanged.subscribe(data => {
       if (data.status == 200) {
+        this.isLogin = true
         this.userData = data.data;
         this.userNick = this.userData.nick
         console.log('profile data', this.userData);
@@ -57,14 +57,8 @@ export class ProfileComponent {
         if (this.userData.avatar) {
           this.imgLink = dataService.backHost + this.userData.avatar
         }
-
       }
     })
-
-    this.isUserToken = dataService.accessToken ? dataService.accessToken : false;
-
-
-
   }
 
   onFilesSelected(event: any) {
@@ -99,19 +93,19 @@ export class ProfileComponent {
     }
   }
   sendEditData() {
-    let obj =  {
+    let obj = {
       userNick: this.userForm.userNick,
-      editFirstName: this.userForm.editFirstName.length == 0? this.userData.firstName: this.userForm.editFirstName,
-      editSecondName: this.userForm.editSecondName.length == 0? this.userData.secondName: this.userForm.editSecondName,
-      editLastName: this.userForm.editLastName.length == 0? this.userData.lastName: this.userForm.editLastName,
-      editPhone: this.userForm.editPhone.length == 0? this.userData.phone: this.userForm.editPhone,
-      editEmail: this.userForm.editEmail.length == 0? this.userData.email: this.userForm.editEmail,
+      editFirstName: this.userForm.editFirstName.length == 0 ? this.userData.firstName : this.userForm.editFirstName,
+      editSecondName: this.userForm.editSecondName.length == 0 ? this.userData.secondName : this.userForm.editSecondName,
+      editLastName: this.userForm.editLastName.length == 0 ? this.userData.lastName : this.userForm.editLastName,
+      editPhone: this.userForm.editPhone.length == 0 ? this.userData.phone : this.userForm.editPhone,
+      editEmail: this.userForm.editEmail.length == 0 ? this.userData.email : this.userForm.editEmail,
       socialLinks: {
-        editLinkInst: this.userForm.socialLinks.inst.length === 0? this.userData.socialLinks.inst : this.userForm.socialLinks.inst,
-        editLinkTg: this.userForm.socialLinks.tg.length === 0? this.userData.socialLinks.tg : this.userForm.socialLinks.tg,
-        editLinkVk: this.userForm.socialLinks.vk.length === 0? this.userData.socialLinks.vk : this.userForm.socialLinks.vk,
+        editLinkInst: this.userForm.socialLinks.inst.length === 0 ? this.userData.socialLinks.inst : this.userForm.socialLinks.inst,
+        editLinkTg: this.userForm.socialLinks.tg.length === 0 ? this.userData.socialLinks.tg : this.userForm.socialLinks.tg,
+        editLinkVk: this.userForm.socialLinks.vk.length === 0 ? this.userData.socialLinks.vk : this.userForm.socialLinks.vk,
       },
-      editDescription: this.userForm.editDescription.length == 0? this.userData.description: this.userForm.editDescription,
+      editDescription: this.userForm.editDescription.length == 0 ? this.userData.description : this.userForm.editDescription,
       files: this.userForm.files,
       confirmPassword: this.userForm.confirmPassword,
       newPassword: this.userForm.newPassword
@@ -138,23 +132,7 @@ export class ProfileComponent {
 
 
 
-    let sendData = async (data: any, token: any) => {
-      try {
-        const responce = await axios.post('http://localhost:3000/auth/updateUser', data, {
-          headers: {
-            "Content-Type": 'multipart/form-data',
-            accessToken: `Bearer ${token}`
-          }
-        })
-        return responce.data
-      } catch (error) {
-        console.log(error);
-
-      }
-    }
-
-
-    sendData(formData, this.isUserToken).then(data => {
+    postData(this.tokens, 'auth/updateUser', formData, 'multipart/form-data').then(data => {
       console.log(data);
       if (data.status == 200) {
         this.isNotification = true

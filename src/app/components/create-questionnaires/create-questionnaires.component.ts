@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import axios from 'axios';
 import { ModalNotificationComponent } from '../../modal/modal-notification/modal-notification.component';
+import { postData } from '../../utils/allUtils';
+import { TokensAuth } from '../../interfaces/forms';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'app-create-questionnaires',
@@ -19,12 +22,12 @@ export class CreateQuestionnairesComponent {
   imgArr: string[] = [];
   counter: number = 0;
   correctSend: boolean = false;
-  alertMessage: any = []
-
+  alertMessage: any = {}
+  tokens:TokensAuth = this.dataService.getUserTokens()
   formHuman: FormGroup;
   formAnimal: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dataService: DataService,) {
     this.formHuman = fb.group({
       human: true,
       firstName: '',
@@ -108,38 +111,26 @@ export class CreateQuestionnairesComponent {
 
 
 
-    const createNewBlank = async (blank: any) => {
-      try {
-        console.log('blank:', blank);
-
-        const responce = await axios.post('http://localhost:3000/form/create', blank, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-        return responce.data
-      } catch (error: any) {
-        console.log('Общая ошибка:', error);
-      }
-    }
+ 
 
 
 
-    createNewBlank(formData).then(data => {
-      this.alertMessage = []
+    postData(this.tokens, 'form/create',formData).then(data => {
+      console.log(data);
+      
       if (data.status == 200) {
         let obj: any = {
           message: 'Анкета успешно отправлена на модерацию!',
           style: '0 0 10px green'
         }
-        this.alertMessage.push(obj)
+        this.alertMessage = obj
         this.correctSend = true;
       } else {
         let obj: any = {
           message: 'Ошибка при отправке анкеты',
           style: '0 0 10px red'
         }
-        this.alertMessage.push(obj)
+        this.alertMessage = obj
 
         this.correctSend = true;
       }
@@ -169,24 +160,11 @@ export class CreateQuestionnairesComponent {
       }
     });
 
-    const createNewBlank = async (blank: any) => {
-      try {
-        console.log('blank:', blank);
-
-        const responce = await axios.post('http://localhost:3000/form/create', blank, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-        return responce.data
-      } catch (error: any) {
-        console.log('Общая ошибка:', error);
-      }
-    }
+  
 
 
 
-    createNewBlank(formData).then(data => console.log(data))
+    postData(this.tokens, 'form/create',formData).then(data => console.log(data))
 
 
 
