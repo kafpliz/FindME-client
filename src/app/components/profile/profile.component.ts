@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../data.service';
 import { CommonModule } from '@angular/common';
-import axios from 'axios';
 import { ModalNotificationComponent } from '../../modal/modal-notification/modal-notification.component';
 import { modalEnterAnimation, modalleaveAnimation } from '../../animations/allAnimation';
 import { FormsModule } from '@angular/forms';
 import { TokensAuth, editUserForm } from '../../interfaces/forms';
 import { postData } from '../../utils/allUtils';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NoRightsComponent } from '../../erorr-components/no-rights/no-rights.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModalNotificationComponent],
+  imports: [CommonModule, FormsModule, ModalNotificationComponent, NgxSkeletonLoaderModule, NoRightsComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
   animations: [modalEnterAnimation, modalleaveAnimation]
@@ -25,6 +26,7 @@ export class ProfileComponent {
   imgLink: string = '';
   userNick: string = '';
   tokens: TokensAuth = this.dataService.getUserTokens()
+  loading:boolean = true
   userForm: editUserForm = {
     userNick: '',
     editFirstName: '',
@@ -48,16 +50,19 @@ export class ProfileComponent {
 
   constructor(private dataService: DataService) {
     dataService.dataChanged.subscribe(data => {
+      console.log(data);
+
       if (data.status == 200) {
         this.isLogin = true
         this.userData = data.data;
         this.userNick = this.userData.nick
-        console.log('profile data', this.userData);
+        this.imgLink = this.userData.avatar
         this.userForm.userNick = this.userData.nick;
-        if (this.userData.avatar) {
-          this.imgLink = dataService.backHost + this.userData.avatar
-        }
+       
       }
+      setTimeout(() => {
+        this.loading = false
+      }, 1500);
     })
   }
 
@@ -101,9 +106,9 @@ export class ProfileComponent {
       editPhone: this.userForm.editPhone.length == 0 ? this.userData.phone : this.userForm.editPhone,
       editEmail: this.userForm.editEmail.length == 0 ? this.userData.email : this.userForm.editEmail,
       socialLinks: {
-        editLinkInst: this.userForm.socialLinks.inst.length === 0 ? this.userData.socialLinks.inst : this.userForm.socialLinks.inst,
-        editLinkTg: this.userForm.socialLinks.tg.length === 0 ? this.userData.socialLinks.tg : this.userForm.socialLinks.tg,
-        editLinkVk: this.userForm.socialLinks.vk.length === 0 ? this.userData.socialLinks.vk : this.userForm.socialLinks.vk,
+        editLinkInst: this.userForm.socialLinks.inst.length === 0 ? this.userData.socialLinks?.inst : this.userForm.socialLinks.inst,
+        editLinkTg: this.userForm.socialLinks.tg.length === 0 ? this.userData.socialLinks?.tg : this.userForm.socialLinks.tg,
+        editLinkVk: this.userForm.socialLinks.vk.length === 0 ? this.userData.socialLinks?.vk : this.userForm.socialLinks.vk,
       },
       editDescription: this.userForm.editDescription.length == 0 ? this.userData.description : this.userForm.editDescription,
       files: this.userForm.files,

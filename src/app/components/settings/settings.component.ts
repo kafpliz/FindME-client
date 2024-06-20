@@ -102,27 +102,10 @@ export class SettingsComponent {
   }
 
   sendPublicProfile() {
-    let send = async (data: any) => {
-      try {
-        const responce = await axios.post('http://localhost:3000/auth/setPublicProfile', data.data, {
-          headers: {
-            accessToken: `Bearer ${data.tokens.accessToken}`,
-          }
-        })
-
-        return responce.data
-
-      } catch (error: any) {
-
-      }
-    }
-
     if (this.publicProfile == true) {
-      send({ tokens: this.tokens, data: { public: false } }).then(data => {
-        console.log(data);
-
+      postData(this.tokens, 'auth/setPublicProfile', { public: false } ).then(data => {
         if (data.status == 200) {
-          this.notification = [{ message: data.message, style: '0 0 10px green' }]
+          this.notification = { message: data.message, style: '0 0 10px green' }
           this.isNotification = true;
           this.publicProfile = false
           setTimeout(() => {
@@ -131,11 +114,10 @@ export class SettingsComponent {
         }
       })
     } else {
-      send({ tokens: this.tokens, data: { public: true } }).then(data => {
-        console.log(data);
-
+      postData(this.tokens, 'auth/setPublicProfile' ,{ public: true } ).then(data => {
+       
         if (data.status == 200) {
-          this.notification = [{ message: data.message, style: '0 0 10px green' }]
+          this.notification = { message: data.message, style: '0 0 10px green' }
           this.isNotification = true;
           this.publicProfile = true
 

@@ -21,8 +21,8 @@
       <label for="burger-checkbox" class="burger"></label>
       <div class="menu-list">
         <a class="profile-link burger-profile-link" routerLink="/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="isLogin">
-          <img class="burger-profile-img" [src]="userData.avatar" alt="" srcset="" >
-          <span class="burger-profile-firstname"  >{{userData.firstName ? userData.firstName : userData.nick}}</span>
+          <img class="burger-profile-img" [src]="imgLink" alt="" srcset="" >
+          <span class="burger-profile-firstname"  >{{userData.nick}}</span>
         </a>
         <a class="profile-link burger-profile-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="!isLogin">
           <img class="burger-profile-img" src="assets/img/default.jpg" alt="" srcset="" >

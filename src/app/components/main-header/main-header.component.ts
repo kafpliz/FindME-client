@@ -21,19 +21,17 @@ export class MainHeaderComponent {
   isUserToken: boolean | string = false
   isLogin: boolean = false
   isAdmin: boolean = true
- 
+  imgLink: string = ''
   userData!: UserData;
 
   constructor(private dataService: DataService, private cookieService: CookieService) {
     dataService.dataChanged.subscribe((data: { status: number, data: UserData }) => {
+      console.log(data, ' 1');
 
+      this.userData = data.data
       if (data.status == 200 && data != null) {
         this.isLogin = true;
         this.isUserToken = dataService.accessToken
-     
-        this.userData = data.data
-        this.userData.avatar = this.userData.avatar ? dataService.backHost + this.userData.avatar : 'http://localhost:3000//user_img/default.jpg'
-        console.log(this.userData);
 
         
       }

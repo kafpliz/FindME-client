@@ -8,8 +8,8 @@ import { postData } from './utils/allUtils';
   providedIn: 'root'
 })
 export class DataService {
-  refreshToken: string | boolean= this.cookieService.get('refreshToken')? this.cookieService.get('refreshToken') : false;
-  accessToken: string| boolean = this.cookieService.get('accessToken')? this.cookieService.get('accessToken') : false;
+  refreshToken: string | boolean = this.cookieService.get('refreshToken') ? this.cookieService.get('refreshToken') : false;
+  accessToken: string | boolean = this.cookieService.get('accessToken') ? this.cookieService.get('accessToken') : false;
   isAdmin: boolean = false;
   isLogin: boolean = false;
   backHost: string = 'http://localhost:3000/'
@@ -17,23 +17,27 @@ export class DataService {
   private userData: any = 'По кд'
   dataChanged = new EventEmitter<any>()
 
-  
+
 
   constructor(private cookieService: CookieService) {
 
-     if(this.refreshToken || this.accessToken){
-      postData({accessToken: this.accessToken, refreshToken: this.refreshToken}, 'auth/getUser', '').then(data => {
-        console.log(data);
-        if (data.status == 200){
-        
+    if (this.refreshToken || this.accessToken) {
+      postData({ accessToken: this.accessToken, refreshToken: this.refreshToken }, 'auth/getUser', '').then(data => {
+        console.log(data, '2');
+        if (data.status == 200) {
+          if(data.data.avatar){
+            data.data.avatar = this.backHost + data.data.avatar
+          } else {
+            data.data.avatar = '/assets/img/default.jpg'
+          }
+          
           this.isAdmin = data.data.roles === "admin" ? true : false
           data.data.admin = true;
-          
           this.isLogin = true
-         
-    
           this.dataChanged.emit(data)
-        } else if(data.status == 205) {    
+
+        } else if (data.status == 205) {
+          
           cookieService.delete('refreshToken')
           cookieService.delete('accessToken')
           cookieService.set('accessToken', data.tokens.accessToken)
@@ -41,20 +45,20 @@ export class DataService {
           this.accessToken = data.tokens.accessToken;
           this.refreshToken = data.tokens.refreshToken
           location.reload()
-          
+
         }
-  
-       
+
+
       })
-     }
-    
+    }
+
 
   }
 
   getIsLogin() {
     return this.isLogin
   }
-  getUserTokens(){
+  getUserTokens() {
     return {
       refreshToken: this.refreshToken,
       accessToken: this.accessToken
@@ -77,5 +81,5 @@ export class DataService {
   getUserData() {
     return this.userData
   }
-  
+
 }

@@ -33,7 +33,12 @@ export class AllUsersComponent {
         console.log(data);
         this.isLogin = true
         for (let i = 0; i < data.data.length; i++) {
-          data.data[i].avatar = this.dataService.backHost + data.data[i].avatar;
+          if(data.data[i].avatar){
+            data.data[i].avatar = this.dataService.backHost + data.data[i].avatar;
+          } else {
+            data.data[i].avatar = '/assets/img/default.jpg'
+          }
+          
           data.data[i].socialLinks = JSON.parse(data.data[i].socialLinks)
           this.users.push(data.data[i])
         }

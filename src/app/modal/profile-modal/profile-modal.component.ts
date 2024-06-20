@@ -14,12 +14,15 @@ import { CommonModule } from '@angular/common';
 })
 export class ProfileModalComponent {
   @Input() data: any;
-  isAdmin:boolean = this.dataService.isAdmin;
-  isLogin:boolean = this.dataService.isLogin
+  isAdmin: boolean = this.dataService.isAdmin;
+  isLogin: boolean = this.dataService.isLogin
+
 
   constructor(private dataService: DataService, private cookieService: CookieService,) {
+    console.log(this.data);
+    
   }
-  
+
   logOut() {
     console.log('Вы вышли');
     this.cookieService.delete('accessToken')
