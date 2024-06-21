@@ -5,6 +5,7 @@
     <a routerLink="/" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
     <a routerLink="/questionnaires" class="link" routerLinkActive="active"
       [routerLinkActiveOptions]="{exact: true}">Анкеты</a>
+      
     <a routerLink="/create-questionnaires" class="link" routerLinkActive="active"
       [routerLinkActiveOptions]="{exact: true}">Создать анкету</a>
     <a routerLink="/users" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
@@ -15,6 +16,7 @@
     <a routerLink="/login" class="link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
       *ngIf="!isUserToken">Войти</a>
   </div>
+
   <div class="header-item burger-menu">
     <div class="menu">
       <input type="checkbox" id="burger-checkbox" class="burger-checkbox">
@@ -49,6 +51,11 @@
 
           <div class="settings-item" *ngIf="isAdmin" >
             <div class="text"><span class="link" routerLink="/control" routerLinkActive="active">Пользователи</span>
+            </div>
+            <div class="icon"><img src="assets/icons/book.svg" width="20px" alt="" srcset=""></div>
+          </div>
+          <div class="settings-item" *ngIf="isAdmin" >
+            <div class="text"><span class="link" routerLink="/control" routerLinkActive="active">Анкеты на модерацию</span>
             </div>
             <div class="icon"><img src="assets/icons/book.svg" width="20px" alt="" srcset=""></div>
           </div>

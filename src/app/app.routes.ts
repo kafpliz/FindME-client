@@ -10,6 +10,7 @@ import { TeamsComponent } from './components/teams/teams.component';
 import { CreateTeamComponent } from './components/create-team/create-team.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AllUsersComponent } from './components/all-users/all-users.component';
+import { ModerateBlankComponent } from './components/moderate-blank/moderate-blank.component';
 
 export const routes: Routes = [
     {path: '', component: MainComponent},
@@ -22,6 +23,7 @@ export const routes: Routes = [
     {path: 'create-team', component: CreateTeamComponent},
     {path: 'settings', component: SettingsComponent},
     {path: 'users', component: AllUsersComponent},
+    {path: 'moderate-blank', component: ModerateBlankComponent},
 
 
     {path: '**', component: NotFoundComponent}
