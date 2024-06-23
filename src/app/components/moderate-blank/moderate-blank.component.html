@@ -1,1 +1,66 @@
-<p>moderate-blank works!</p>
+<div class="main" *ngIf="isLogin">
+    <div class="blanks" *ngIf="!isLoading" [ngStyle]="{display: isLoading ? 'none' : 'flex'}">
+        <div class="blank" *ngFor="let item of moderateBlanks">
+            <div class="photos">
+                <img  [src]="backHost + item.img" class="card-blank-img" alt="Person img">
+                <div class="moderate">
+                    <div class="approved" >
+                        <span style="display: none;">{{item.id}}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon svg-approved" viewBox="0 0 512 512" (click)="approvedBlank($event)" data-id="{{item.id}}">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M416 128L192 384l-96-96" />
+                        </svg>
+                    </div>
+                    <div class="denied">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon svg-denied" viewBox="0 0 512 512" >
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M368 368L144 144M368 144L144 368" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="fullname">
+                <span class="fullname-span">{{item.lastName}} {{item.firstName}} {{item.secondName}}</span>
+            </div>
+            <div class="time">
+                <span class="time-span">{{item.time}}</span>
+            </div>
+            <div class="peculiarities">
+                <span class="peculiarities-span">{{item.peculiarity}}</span>
+            </div>
+            <div class="description">
+                <span class="description-span">{{item.description}}</span>
+            </div>
+        </div>
+   
+    </div>
+
+    <div class="loading" *ngIf="isLoading" [ngStyle]="{display: isLoading ? 'flex' : 'none'}">
+        <div class="loading-blank" *ngFor="let item of [1,2,3,4]">
+            <div class="item" style="display: flex; justify-content: center; height: 180px; align-items: center;">
+               <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{'height': '150px','border-radius': '15px','width': '150px' }" />
+            </div>
+
+            <div class="item2" style="width: 100%; display: flex; justify-content: center; height: 20px;">
+            <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{ 'width': '180px',}" />
+            </div>
+
+            <div class="item2" style="width: 100%; display: flex; justify-content: center; height: 100px;">
+                <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{'width': '200px','height': '100px'}" />
+            </div>
+
+            <div class="item2" style="width: 100%; display: flex; justify-content: center; height: 20px;">
+                <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{'width': '150px','height': '20px'}" />
+            </div>
+
+            <div class="item3" style="display: flex; gap: 10px; justify-content: center; height: 30px; width: 100%; ">
+                <ngx-skeleton-loader count="3" appearance="circle" animation="progres" />
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<app-no-rights *ngIf="!isLogin" />

@@ -23,7 +23,7 @@ export class CreateQuestionnairesComponent {
   counter: number = 0;
   correctSend: boolean = false;
   alertMessage: any = {}
-  tokens:TokensAuth = this.dataService.getUserTokens()
+  tokens: TokensAuth = this.dataService.getUserTokens()
   formHuman: FormGroup;
   formAnimal: FormGroup;
 
@@ -93,54 +93,51 @@ export class CreateQuestionnairesComponent {
 
 
   sendDataHuman() {
+    console.log(this.formHuman.value);
+    
+    
 
-    const formData = new FormData();
-
-    Object.keys(this.formHuman.value).forEach(key => {
-      if (key === 'files') {
-        const files: File[] = this.formHuman.get('files')?.value;
-        if (files) {
-          for (let i = 0; i < files.length; i++) {
-            formData.append('files', files[i]);
-          }
-        }
-      } else {
-        formData.append(key, this.formHuman.get(key)?.value);
-      }
-    });
-
-
-
+     const formData = new FormData();
  
-
-
-
-    postData(this.tokens, 'form/create',formData).then(data => {
-      console.log(data);
-      
-      if (data.status == 200) {
-        let obj: any = {
-          message: 'Анкета успешно отправлена на модерацию!',
-          style: '0 0 10px green'
-        }
-        this.alertMessage = obj
-        this.correctSend = true;
-      } else {
-        let obj: any = {
-          message: 'Ошибка при отправке анкеты',
-          style: '0 0 10px red'
-        }
-        this.alertMessage = obj
-
-        this.correctSend = true;
-      }
-
-
-
-      setTimeout(() => {
-        this.correctSend = false
-      }, 3000);
-    })
+     Object.keys(this.formHuman.value).forEach(key => {
+       if (key === 'files') {
+         const files: File[] = this.formHuman.get('files')?.value;
+         if (files) {
+           for (let i = 0; i < files.length; i++) {
+             formData.append('files', files[i]);
+           }
+         }
+       } else {
+         formData.append(key, this.formHuman.get(key)?.value);
+       }
+     });
+ 
+     postData(this.tokens, 'form/create',formData).then(data => {
+       console.log(data);
+       
+       if (data.status == 200) {
+         let obj: any = {
+           message: 'Анкета успешно отправлена на модерацию!',
+           style: '0 0 10px green'
+         }
+         this.alertMessage = obj
+         this.correctSend = true;
+       } else {
+         let obj: any = {
+           message: 'Ошибка при отправке анкеты',
+           style: '0 0 10px red'
+         }
+         this.alertMessage = obj
+ 
+         this.correctSend = true;
+       }
+ 
+ 
+ 
+       setTimeout(() => {
+         this.correctSend = false
+       }, 3000);
+     })
 
   }
   sendDataAnimal() {
@@ -160,11 +157,11 @@ export class CreateQuestionnairesComponent {
       }
     });
 
-  
 
 
 
-    postData(this.tokens, 'form/create',formData).then(data => console.log(data))
+
+    postData(this.tokens, 'form/create', formData).then(data => console.log(data))
 
 
 

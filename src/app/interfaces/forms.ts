@@ -78,5 +78,18 @@ export interface UserData {
 
 export interface TokensAuth {
     refreshToken: string | boolean
-      accessToken: string | boolean
+    accessToken: string | boolean
+}
+export interface BlankForms {
+    description: string
+    firstName: string
+    found: number
+    human: number
+    id: number
+    img: string
+    isModerate:number
+    lastName: string
+    peculiarity: string
+    secondName: string
+    time: string
 }

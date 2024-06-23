@@ -199,9 +199,9 @@
     align-items: center;
     cursor: pointer;
     transition: all .6s ease-out;
-    padding: 5px;
     border-radius: 10px;
-
+    padding: 5px 10px;
+    justify-content: space-between;
 }
 
 .icon {
@@ -209,7 +209,11 @@
 }
 
 .text {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    white-space: nowrap;
+    width: 140px;
+    overflow: hidden;
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    text-overflow: ellipsis;
 }
 
 .profile-leave {
