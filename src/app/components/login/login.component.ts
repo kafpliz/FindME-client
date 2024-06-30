@@ -69,12 +69,12 @@ export class LoginComponent {
           message: `${data.message}, сейчас вас перенаправят.`,
           style: '0 0 10px green'
         }
-        console.log('login до',this.alertMessage);
+    
         this.alertMessage = obj
-        console.log('login после',this.alertMessage);
+     
 
-        this.cookieService.set('accessToken', data.token.accessToken)
-        this.cookieService.set('refreshToken', data.token.refreshToken)
+        this.cookieService.set('accessToken', data.tokens.accessToken)
+        this.cookieService.set('refreshToken', data.tokens.refreshToken)
 
         setTimeout(() => {
           this.isCorrectLogin = false
@@ -88,7 +88,6 @@ export class LoginComponent {
   }
 
   sendRegData() {
-
     let data = {
       firstName: this.firsName,
       lastName: this.lastName,
@@ -114,7 +113,6 @@ export class LoginComponent {
 
       } else {
         this.isCorrectLogin = true
-        this.cookieService.set('userToken', data.token)
         let obj: any = {
           message: `${data.message}, сейчас вас перенаправят.`,
           style: '0 0 10px green'
@@ -122,6 +120,7 @@ export class LoginComponent {
         this.alertMessage = obj
 
         setTimeout(() => {
+          this.isCorrectLogin = false
           location.href = '/'
         }, 2000);
 

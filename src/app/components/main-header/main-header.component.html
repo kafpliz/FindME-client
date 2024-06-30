@@ -21,57 +21,48 @@
     <div class="menu">
       <input type="checkbox" id="burger-checkbox" class="burger-checkbox">
       <label for="burger-checkbox" class="burger"></label>
-      <div class="menu-list">
 
-        <a class="profile-link burger-profile-link" routerLink="/profile" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}" *ngIf="isLogin">
+      <div class="menu-list">
+        <a class="profile-link burger-profile-link" routerLink="/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="isLogin">
           <img class="burger-profile-img" [src]="userData.avatar" alt="" srcset="">
           <span class="burger-profile-firstname">{{userData.nick}}</span>
         </a>
 
-        <a class="profile-link burger-profile-link" routerLink="/login" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}" *ngIf="!isLogin">
+        <a class="profile-link burger-profile-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *ngIf="!isLogin">
           <img class="burger-profile-img" src="assets/img/default.jpg" alt="" srcset="">
           <span class="burger-profile-firstname">Войти</span>
-
         </a>
-        <a routerLink="/" class="link menu-link" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">Главная</a>
-        <a routerLink="/questionnaires" class="link menu-link" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">Анкеты</a>
-        <a routerLink="/create-questionnaires" class="link menu-link" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">Создать анкету</a>
-        <a routerLink="/users" class="link menu-link" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
-        <a routerLink="/teams" class="link menu-link" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">Команды</a>
+        <a routerLink="/" class="link menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Главная</a>
+        <a routerLink="/questionnaires" class="link menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Анкеты</a>
+        <a routerLink="/create-questionnaires" class="link menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Создать анкету</a>
+        <a routerLink="/users" class="link menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Волнтёры</a>
+        <a routerLink="/teams" class="link menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Команды</a>
 
         <div class="profile-settings" *ngIf="isLogin">
           <div class="settings-item">
-            <div class="text"><span class="link" routerLink="/settings" routerLinkActive="active">Настройки</span></div>
+            <div class="text"><a class="link" routerLink="/settings" routerLinkActive="active">Настройки</a></div>
             <div class="icon"><img src="assets/icons/settings.svg" width="20px" alt="" srcset=""></div>
 
           </div>
 
           <div class="settings-item" *ngIf="isAdmin">
-            <div class="text"><span class="link" routerLink="/control" routerLinkActive="active">Пользователи</span>
+            <div class="text"><a class="link" routerLink="/control" routerLinkActive="active">Пользователи</a>
             </div>
             <div class="icon"><img src="assets/icons/book.svg" width="20px" alt="" srcset=""></div>
           </div>
 
           <div class="settings-item" *ngIf="isAdmin">
-            <div class="text"><span class="link" routerLink="/moderate-blank" routerLinkActive="active">Анкеты на модерацию</span></div>
+            <div class="text"><a class="link" routerLink="/moderate-blank" routerLinkActive="active">Анкеты на модерацию</a></div>
             <div class="icon"><img src="assets/icons/moderate.svg" width="20px" alt="" srcset=""></div>
           </div>
 
           <div class="settings-item" *ngIf="isLogin">
-            <div class="text link"><span class="link" routerLink="/create-team" routerLinkActive="active">Создать
-                команду</span></div>
+            <div class="text link"><a class="link" routerLink="/create-team" routerLinkActive="active">Создать команду</a></div>
             <div class="icon"><img src="assets/icons/teams.svg" width="20px" alt="" srcset=""></div>
           </div>
           <div class="settings-item">
-            <span class="text link"><span>Помощь</span></span>
-            <span class="icon"><img src="assets/icons/help.svg" width="20px" alt="" srcset=""></span>
+            <div class="text link"><a class="link">Помощь</a></div>
+            <div class="icon"><img src="assets/icons/help.svg" width="20px" alt="" srcset=""></div>
           </div>
           <div class="logout" (click)="logOut()" *ngIf="isLogin">
             <div class="logout-icon"><svg xmlns="http://www.w3.org/2000/svg" class="logout-icon ionicon"
@@ -88,5 +79,9 @@
       </div>
     </div>
   </div>
+
+
+
+
   <app-profile-modal [data]="userData" *ngIf="profileModal" [@profileEnter] [@profileLeave] />
 </div>

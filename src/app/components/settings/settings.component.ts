@@ -29,6 +29,7 @@ export class SettingsComponent {
   publicProfile: boolean = true
 
   constructor(private dataService: DataService,) {
+    
     dataService.dataChanged.subscribe(data => {
       console.log(data);
 

@@ -19,7 +19,7 @@ export class ProfileModalComponent {
 
 
   constructor(private dataService: DataService, private cookieService: CookieService,) {
-    console.log(this.data);
+    
     
   }
 
