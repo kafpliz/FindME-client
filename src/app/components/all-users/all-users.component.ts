@@ -45,7 +45,7 @@ export class AllUsersComponent {
         console.log(this.users);
         setTimeout(() => {
           this.loading = false
-        }, 3000);
+        }, 1500);
       })
       
 

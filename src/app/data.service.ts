@@ -25,6 +25,7 @@ export class DataService {
       postData({ accessToken: this.accessToken, refreshToken: this.refreshToken }, 'auth/getUser', '').then(data => {
         console.log(data, '2');
         if (data.status == 200) {
+          this.isLogin = true
           if(data.data.avatar){
             data.data.avatar = this.backHost + data.data.avatar
           } else {

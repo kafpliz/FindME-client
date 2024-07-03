@@ -26,6 +26,7 @@ export class ProfileModalComponent {
   logOut() {
     console.log('Вы вышли');
     this.cookieService.delete('accessToken')
+    this.cookieService.delete('refreshToken')
     location.reload()
   }
 }

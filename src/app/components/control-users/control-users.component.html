@@ -1,116 +1,151 @@
-<div class="control" *ngIf="isAdmin">
-    <div class="item-block" *ngFor="let item of usersData">
-        <div class="item" *ngIf="!isEdit">
-            <div class="avatar">
-                <img class="avatar-img"
-                    src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                    width="80px" alt="User avatar" *ngIf="!item.avatar">
-                <img class="avatar-img" [src]="link" width="80px" alt="User avatar" *ngIf="item.avatar">
-
-            </div>
-            <div class="info">
-                <div class="info-item">
-                    <span class="type">ФИО:</span>
-                    <span class="span">{{item.lastName}} {{item.firstName}} {{item.secondName}}</span>
-                </div>
-                <div class="info-item">
-                    <span class="type">Почта:</span>
-                    <span class="span"> {{item.email}}</span>
-                </div>
-                <div class="info-item">
-                    <span class="type">Ник:</span>
-                    <span class="span nick-span">{{item.nick}}</span>
+<div class="control" [ngStyle]="{display: isAdmin == false  ? 'none' : 'flex'}">
+    <div class="control" *ngIf="isLoading == false">
+        <div class="item-block" *ngFor="let item of usersData">
+            <div class="item" *ngIf="!isEdit">
+                <div class="avatar">
+                    <img class="avatar-img" src="/assets/img/default.jpg" width="80px" height="80px" alt="User avatar"
+                        *ngIf="!item.avatar">
+                    <img class="avatar-img" [src]="backHost + item.avatar" width="80px" height="80px" alt="User avatar"
+                        *ngIf="item.avatar">
 
                 </div>
-                <div class="info-item">
-                    <span class="type">Роли:</span>
-                    <span class="span roles-span"> {{item.roles }}</span>
+                <div class="info">
+                    <div class="info-item">
+                        <span class="type">ФИО:</span>
+                        <span class="span">{{item.lastName}} {{item.firstName}} {{item.secondName}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="type">Почта:</span>
+                        <span class="span"> {{item.email}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="type">Ник:</span>
+                        <span class="span nick-span">{{item.nick}}</span>
 
-                </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="type">Роли:</span>
+                        <span class="span roles-span"> {{item.roles }}</span>
 
-                <div class="info-item description-item">
-                    <span class="type description-type">Описание:</span>
-                    <span class="span description-span">{{item.description}} </span>
+                    </div>
 
+                    <div class="info-item description-item">
+                        <span class="type description-type">Описание:</span>
+                        <span class="span description-span">{{item.description}} </span>
+
+                    </div>
                 </div>
-            </div>
-            <div class="edit-container">
-                <div class="edit-block header-icons" (click)="changeMode()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" class="edit-icon">
-                        <path
-                            d="M38.406 22.234l11.36 11.36L28.784 54.576l-12.876 4.307c-1.725.577-3.367-1.065-2.791-2.79l4.307-12.876L38.406 22.234zM41.234 19.406l5.234-5.234c1.562-1.562 4.095-1.562 5.657 0l5.703 5.703c1.562 1.562 1.562 4.095 0 5.657l-5.234 5.234L41.234 19.406z" />
-                    </svg>
-                </div>
-                <!--      <div class="end-block header-icons" >
+                <div class="edit-container">
+                    <div class="edit-block header-icons" (click)="changeMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" class="edit-icon">
+                            <path
+                                d="M38.406 22.234l11.36 11.36L28.784 54.576l-12.876 4.307c-1.725.577-3.367-1.065-2.791-2.79l4.307-12.876L38.406 22.234zM41.234 19.406l5.234-5.234c1.562-1.562 4.095-1.562 5.657 0l5.703 5.703c1.562 1.562 1.562 4.095 0 5.657l-5.234 5.234L41.234 19.406z" />
+                        </svg>
+                    </div>
+                    <!--      <div class="end-block header-icons" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="end-item">
                     <path  d="M40.6 12.1L17 35.7 7.4 26.1 4.6 29 17 41.3 43.4 14.9z" />
                 </svg>
             </div> -->
+                </div>
             </div>
-        </div>
-        <div class="item" *ngIf="isEdit">
-            <div class="avatar">
-                <img class="avatar-img"
-                    src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                    width="80px" alt="User avatar" *ngIf="!item.avatar">
-                <img class="avatar-img" [src]="link" width="80px" alt="User avatar" *ngIf="item.avatar">
-                
-            </div>
-            <div class="info edit-info">
-                <div class="info-item info-edit-item">
-                    <div class="FSL"> <span class="type">ФИО:</span></div>
-                    <div class="inp-box">
-                        <input type="text" [placeholder]="item.lastName" class="info-item-inp" [(ngModel)]="editLastName">
-                        <input type="text" [placeholder]="item.firstName" class="info-item-inp" [(ngModel)]="editFirstName">
-                        <input type="text" [placeholder]="item.secondName" class="info-item-inp" [(ngModel)]="editSecondName">
-                    </div>
+            <div class="item" *ngIf="isEdit">
+                <div class="avatar">
+                    <img class="avatar-img" src="/assets/img/default.jpg" width="80px" height="80px" alt="User avatar"
+                        *ngIf="!item.avatar">
+                    <img class="avatar-img" [src]="backHost + item.avatar" width="80px" height="80px" alt="User avatar"
+                        *ngIf="item.avatar">
 
                 </div>
-                <div class="info-item info-edit-item">
-                    <div class="FSL"><span class="type">Почта:</span></div>
-                    <div class="inp-box">
-                        <input type="text" [placeholder]="item.email" class="info-item-inp" [(ngModel)]="editEmail">
+                <div class="info edit-info">
+                    <div class="info-item info-edit-item">
+                        <div class="FSL"> <span class="type">ФИО:</span></div>
+                        <div class="inp-box">
+                            <input type="text" [placeholder]="item.lastName" class="info-item-inp"
+                                [(ngModel)]="editLastName">
+                            <input type="text" [placeholder]="item.firstName" class="info-item-inp"
+                                [(ngModel)]="editFirstName">
+                            <input type="text" [placeholder]="item.secondName" class="info-item-inp"
+                                [(ngModel)]="editSecondName">
+                        </div>
 
                     </div>
+                    <div class="info-item info-edit-item">
+                        <div class="FSL"><span class="type">Почта:</span></div>
+                        <div class="inp-box">
+                            <input type="text" [placeholder]="item.email" class="info-item-inp" [(ngModel)]="editEmail">
+
+                        </div>
+                    </div>
+                    <div class="info-item info-edit-item">
+                        <span class="type">Ник:</span>
+                        <span class="span nick-span">{{item.nick}}</span>
+
+                    </div>
+                    <div class="info-item info-edit-item">
+                        <span class="type">Роли:</span>
+                        <span class="span roles-span"> {{item.roles }}</span>
+
+                    </div>
+
+                    <div class="info-item info-edit-item description-item">
+
+
+                        <span class="type description-type">Описание:</span>
+
+                        <textarea type="text" [placeholder]="item.description" class="info-item-inp edit-descr"
+                            [(ngModel)]="editDescription"></textarea>
+
+
+
+                    </div>
                 </div>
-                <div class="info-item info-edit-item">
-                    <span class="type">Ник:</span>
-                    <span class="span nick-span">{{item.nick}}</span>
-
-                </div>
-                <div class="info-item info-edit-item">
-                    <span class="type">Роли:</span>
-                    <span class="span roles-span"> {{item.roles }}</span>
-
-                </div>
-
-                <div class="info-item info-edit-item description-item">
-
-
-                    <span class="type description-type">Описание:</span>
-
-                    <textarea type="text" [placeholder]="item.description" class="info-item-inp edit-descr" [(ngModel)]="editDescription"></textarea>
-
-
-
-                </div>
-            </div>
-            <div class="edit-container">
-                <div class="edit-block header-icons" (click)="changeMode()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" class="edit-icon" >
-                        <path
-                            d="M38.406 22.234l11.36 11.36L28.784 54.576l-12.876 4.307c-1.725.577-3.367-1.065-2.791-2.79l4.307-12.876L38.406 22.234zM41.234 19.406l5.234-5.234c1.562-1.562 4.095-1.562 5.657 0l5.703 5.703c1.562 1.562 1.562 4.095 0 5.657l-5.234 5.234L41.234 19.406z" />
-                    </svg>
-                </div>
-                <!--      <div class="end-block header-icons" >
+                <div class="edit-container">
+                    <div class="edit-block header-icons" (click)="changeMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" class="edit-icon">
+                            <path
+                                d="M38.406 22.234l11.36 11.36L28.784 54.576l-12.876 4.307c-1.725.577-3.367-1.065-2.791-2.79l4.307-12.876L38.406 22.234zM41.234 19.406l5.234-5.234c1.562-1.562 4.095-1.562 5.657 0l5.703 5.703c1.562 1.562 1.562 4.095 0 5.657l-5.234 5.234L41.234 19.406z" />
+                        </svg>
+                    </div>
+                    <!--      <div class="end-block header-icons" >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="end-item">
                     <path  d="M40.6 12.1L17 35.7 7.4 26.1 4.6 29 17 41.3 43.4 14.9z" />
                 </svg>
             </div> -->
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="control" *ngIf="isLoading">
+        <div class="item-block" *ngFor="let item of [1,2,3,4,5]">
+            <div class="item">
+                <div class="avatar">
+                    <ngx-skeleton-loader count="1" appearance="circle" animation="progres" [theme]="{'width': '80px', 'height':'80px' }" />
+                </div>
+                <div class="info" style="gap: 10px;">
 
+                    <div class="info-item">
+                        <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{'width': '180px' }" />
+                    </div>
+                    <div class="info-item">
+                        <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{'width': '180px' }" />
+                    </div>
+                    <div class="info-item">
+                        <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{'width': '180px' }" />
+                    </div>
+
+                    <div class="info-item description-item">
+                        <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{'width': '200px', 'height':'100px' }" />
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
 </div>
-<app-no-rights *ngIf="!isAdmin" />
+
+<app-no-rights *ngIf="isAdmin == false" />
+<app-modal-notification [data]="notificationMessage" *ngIf="isNotification"  [@modalEnterAnimation] [@modalleaveAnimation]/>

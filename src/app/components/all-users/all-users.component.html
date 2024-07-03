@@ -8,11 +8,6 @@
       <div class="card-item card-item-span">
         <span class="item-span">{{item?.lastName}} {{item?.firstName}} {{item?.secondName}}</span>
       </div>
-      <div class="card-item card-item-description">
-        <span class="description">
-          <pre [innerHTML]="item?.description"></pre>
-        </span>
-      </div>
       <div class="card-item card-item-span">
         <span class="item-span">{{item?.email}}</span>
       </div>
@@ -92,13 +87,7 @@
         <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{
           'width': '180px',
           }" />
-      </div>
-      <div class="item2" style="width: 100%; display: flex; justify-content: center; height: 100px;">
-        <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{
-          'width': '200px',
-          'height': '100px'
-          }" />
-      </div>
+      </div> 
       <div class="item2" style="width: 100%; display: flex; justify-content: center; height: 20px;">
         <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{
           'width': '150px',

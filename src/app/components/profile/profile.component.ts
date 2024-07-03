@@ -23,10 +23,10 @@ export class ProfileComponent {
   isEdit: boolean = false
   alertMessage: any = {};
   isNotification: boolean = false
-  imgLink: string = '';
   userNick: string = '';
+  imgLink: string = ''
   tokens: TokensAuth = this.dataService.getUserTokens()
-  loading:boolean = true
+  loading: boolean | null = true
   userForm: editUserForm = {
     userNick: '',
     editFirstName: '',
@@ -49,21 +49,36 @@ export class ProfileComponent {
 
 
   constructor(private dataService: DataService) {
-    dataService.dataChanged.subscribe(data => {
-      console.log(data);
+    console.log();
+    if (dataService.accessToken || dataService.refreshToken) {
+      this.isLogin = true
+      postData({ accessToken: dataService.accessToken, refreshToken: dataService.refreshToken }, 'auth/getUser', '').then(data => {
+        if (data.status == 200) {
+          this.loading = false;
+          this.userData = data.data
+          this.userData.avatar = dataService.backHost + this.userData.avatar
+        }
 
+      })
+    } else {
+      this.loading = null
+      this.isLogin = false
+    }
+
+    /* this.isLogin = dataService.isLogin;
+    console.log(this.isLogin);
+    
+    dataService.dataChanged.subscribe(data => {
       if (data.status == 200) {
-        this.isLogin = true
+       
         this.userData = data.data;
         this.userNick = this.userData.nick
         this.imgLink = this.userData.avatar
         this.userForm.userNick = this.userData.nick;
-       
-      }
-      setTimeout(() => {
         this.loading = false
-      }, 1500);
-    })
+      }
+      
+    }) */
   }
 
   onFilesSelected(event: any) {

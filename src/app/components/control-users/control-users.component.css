@@ -20,6 +20,11 @@
 .avatar {
     width: 80px;
 }
+.avatar-img {
+    border-radius: 15px;
+    box-shadow: 0 0 4px 1px black;
+    height: 80px;
+}
 
 .info {
     padding: 8px;

@@ -1,9 +1,11 @@
 <div class="z-profile" *ngIf="isLogin">
-    <div class="profile" *ngIf="!loading">
+    <div class="profile" *ngIf="loading == false">
         <div class="container" *ngIf="!isEdit">
             <div class="header">
                 <div class="avatar">
-                    <img [src]="imgLink" alt="avatar" srcset="User avatar" class="avatar-img">
+                    <img [src]="userData.avatar" alt="Аватар пользователя" class="avatar-img" *ngIf="userData.avatar">
+                    <img src="/assets/img/default.jpg" alt="Аватар пользователя" class="avatar-img"
+                        *ngIf="!userData.avatar">
                 </div>
                 <div class="info">
                     <div class="info-item">
@@ -110,7 +112,9 @@
         <div class="container" *ngIf="isEdit">
             <div class="header">
                 <div class="avatar">
-                    <img [src]="imgLink" alt="avatar" srcset="User avatar" class="avatar-img">
+                    <img [src]="userData.avatar" alt="Аватар пользователя" class="avatar-img" *ngIf="userData.avatar && !imgLink">
+                    <img src="/assets/img/default.jpg" alt="Аватар пользователя" class="avatar-img" *ngIf="!userData.avatar && !imgLink">
+                    <img [src]="imgLink" alt="Аватар пользователя" class="avatar-img" *ngIf="imgLink">
                     <input type="file" name="" class="edit-avatar-file" id="" (change)="onFilesSelected($event)">
                 </div>
                 <div class="info">
@@ -178,7 +182,6 @@
             [@modalleaveAnimation]></app-modal-notification>
         <app-no-rights *ngIf="!isLogin" />
     </div>
-
     <div class="skeleton" *ngIf="loading">
         <div class="skeleton-header">
             <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{
@@ -197,7 +200,7 @@
                        'height': '35px' }" />
                 </div>
             </div>
-            
+
         </div>
         <div class="skeleton-descr" style="width: 700px; align-self: flex-start; margin-left: 164px;">
             <ngx-skeleton-loader count="1" appearance="line" animation="progres" [theme]="{
@@ -206,10 +209,12 @@
                
                }" />
         </div>
-        
+
 
     </div>
 
 
 
 </div>
+
+<app-no-rights *ngIf="!isLogin"/> 
