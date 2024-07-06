@@ -53,7 +53,7 @@ export class CreateTeamComponent {
         this.creater = {
           id: data.data.id,
           nick: data.data.nick,
-          avatar: dataService.backHost + data.data.avatar,
+          avatar: data.data.avatar,
           creator: true,
         }
 
@@ -72,7 +72,12 @@ export class CreateTeamComponent {
 
         } else {
           for (let i = 0; i < data.data.length; i++) {
-            data.data[i].avatar = this.dataService.backHost + data.data[i].avatar
+            if(data.data[i].avatar){
+              data.data[i].avatar = this.dataService.backHost + data.data[i].avatar
+            }else {
+              data.data[i].avatar = this.dataService.defaultAvatar
+            }
+           
 
           }
           this.memberTips = data.data;

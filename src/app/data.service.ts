@@ -14,6 +14,7 @@ export class DataService {
   isLogin: boolean = false;
   backHost: string = 'http://localhost:3000/'
   isAccess: boolean = false
+  defaultAvatar:string = '/assets/img/default.jpg'
   private userData: any = 'По кд'
   dataChanged = new EventEmitter<any>()
 
@@ -29,7 +30,7 @@ export class DataService {
           if(data.data.avatar){
             data.data.avatar = this.backHost + data.data.avatar
           } else {
-            data.data.avatar = '/assets/img/default.jpg'
+            data.data.avatar = this.defaultAvatar
           }
           
           this.isAdmin = data.data.roles === "admin" ? true : false

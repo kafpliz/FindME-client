@@ -49,14 +49,18 @@ export class ProfileComponent {
 
 
   constructor(private dataService: DataService) {
-    console.log();
+
     if (dataService.accessToken || dataService.refreshToken) {
       this.isLogin = true
       postData({ accessToken: dataService.accessToken, refreshToken: dataService.refreshToken }, 'auth/getUser', '').then(data => {
         if (data.status == 200) {
           this.loading = false;
           this.userData = data.data
-          this.userData.avatar = dataService.backHost + this.userData.avatar
+          if(this.userData.avatar == null){
+            this.userData.avatar = dataService.defaultAvatar
+          } else {
+            this.userData.avatar = dataService.backHost +this.userData.avatar 
+          }
         }
 
       })
@@ -65,20 +69,7 @@ export class ProfileComponent {
       this.isLogin = false
     }
 
-    /* this.isLogin = dataService.isLogin;
-    console.log(this.isLogin);
-    
-    dataService.dataChanged.subscribe(data => {
-      if (data.status == 200) {
-       
-        this.userData = data.data;
-        this.userNick = this.userData.nick
-        this.imgLink = this.userData.avatar
-        this.userForm.userNick = this.userData.nick;
-        this.loading = false
-      }
-      
-    }) */
+   
   }
 
   onFilesSelected(event: any) {
